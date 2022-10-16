@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flowsy.Repository.Core", "Flowsy.Repository.Core\Flowsy.Repository.Core.csproj", "{1D6B91C1-6914-4122-B4B9-F595C4EC5D23}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Global", "Global", "{6109450C-679A-459E-9F10-08C93A974004}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		publish.sh = publish.sh
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1D6B91C1-6914-4122-B4B9-F595C4EC5D23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D6B91C1-6914-4122-B4B9-F595C4EC5D23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D6B91C1-6914-4122-B4B9-F595C4EC5D23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D6B91C1-6914-4122-B4B9-F595C4EC5D23}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
