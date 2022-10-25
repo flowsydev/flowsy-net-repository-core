@@ -1,13 +1,25 @@
 # Flowsy Repository Core
 
-Basic abstractions for creating entity repositories which main goal is to define the behavior of
-each final implementation, no matter what the underlying database technology (SQL, Documental, etc).  
+Basic abstractions for creating entity repositories which main goal is to define the behavior expected from
+each final implementation, no matter what the underlying database technology (SQL, Documental, etc).
+
+## Concepts
+When developing applications, we need to create models of the objects and concepts from the real world.
+Our models depict the names, attributes and relationships between those objects.
+From an abstract point of view, we will say that every object in our model is an entity which will be stored 
+in a repository, from where it can be fetched when needed.
+
+## Naming Conventions
+As we will see, it is of great importance to define naming conventions for classes and properties, and stick to them
+within development teams, so classes implementing interfaces from this package can be built in a consistent way and
+provide ease of use to the final user.
+
 
 ## IEntity
-Interface for objects used as entities for a given repository.
+Interface that shall be implemented by classes used as entities handled by a given repository.
 
 ## IEntityTranslation
-Interface for objects used as the translation for a given entity.
+Interface that shall be implemented by classes used as the translation for a given entity.
 Intended for applications with multi-lingual support.
 ```csharp
 // Entity
@@ -36,7 +48,7 @@ public class ProductTranslation : IEntityTranslation
 ```
 
 ## IEntityTranslated
-Interface for objects extending an entity to include a specific translation.
+Interface that shall be implemented by classes extending an entity to include a specific translation.
 An object implementing **IEntityTranslated** can be thought of as a combination of an entity and its translation.
 Intended for applications with multi-lingual support.
 ```csharp
@@ -58,29 +70,106 @@ public class ProductTranslated : Product, IEntityTranslated
 ```
 
 ## IRepository
-Interface that defines the behavior of a repository for storing, retrieving and updating entities.
+Interface that defines the behavior of a repository for storing, retrieving, updating and deleting entities.
 Other interfaces inheriting or objects implementing this interface can define additional methods suited for a specific entity use case.
 
-### Repository Data and Behavior
-* Entity Name: A string to identify the type of entity handled for the repository. Example: Product.
-* Identity Property Name: The property of the underlying entity used as unique identifier for entitiies of the repository. Example: ProductId.
-* Create: Creates a new entity in the repository.
-* Update: Updates all attributes of an entity in the repository.
-* Patch: Updates certain attributes of an entity of the repository.
-* Delete By Id: Deletes the one entity with the specified unique identifier.
-* Delete Many: Deletes one or more entities matching the specified criteria.
-* Get By Id: Retrieves the one entity with the specified unique identifier. 
-* Get By Id Extended: Retrieves an extended version of one entity with the specified unique identifier.
-* Get One: Retrieves a single entity matching the specified criteria.
-* Get One Extended: Retrieves an extended version of a single entity matching the specified criteria.
-* Get Many: Retrieves one or more entities matching the specified criteria.
-* Get Many Extended: Retrieves an extended version of one or more entities matching the specified criteria.
+```csharp
+public interface IRepository<TEntity, TIdentity> : IRepository where TEntity : class, IEntity
+{
+}
+```
+
+### Generic Type Parameters
+#### TEntity
+The type of entity handled by the repository.
+
+#### TIdentity
+The type of the property that uniquely identifies each entity of the repository.
+
+
+### Properties
+#### EntityName
+A string to identify the type of entity handled for the repository.
+It is highly recommended to stick to a PascalCase convention, so specific implementations will be able to perform tasks in a consistent way.
+The entity name can be thought of as the noun used to describe that real world object or concept being modeled: Product, Customer, Invoice, PurchaseOrder, etc.
+
+
+#### IdentityPropertyName
+The name of the property that holds unique identifiers for entities of the repository.
+It is highly recommended to use consistent values in PascalCase format for all of the entities handled by the application.
+
+### Methods
+The IRepository interface defines several methods intended to create, retrieve, update and delete entities.
+Some methods expose overloaded versions to offer different choices to the caller.
+This way the repository can perform the same task receiving the type of input best suited for every scenario.
+
+For example, the CreateAsync method offers the following overloads:
+```csharp
+public interface IRepository<TEntity, TIdentity>
+{
+    // The type of entity is provided when invoking the method
+    Task<TIdentity> CreateAsync<T>(T entity, CancellationToken cancellationToken) where T : class;
+    
+    // The type of entity is the same known to be handled by the repository
+    Task<TIdentity> CreateAsync(TEntity entity, CancellationToken cancellationToken);
+    
+    // A dynamic object is provided to read the properties to be set for the new entity
+    Task<TIdentity> CreateAsync(dynamic entity, CancellationToken cancellationToken);
+    
+    // A dictionary is provided to read the properties to be set for the new entity
+    Task<TIdentity> CreateAsync(IReadOnlyDictionary<string, object?> properties, CancellationToken cancellationToken);
+}
+```
+As we can see, the four versions of the same method can be used to create a new entity in the underlying data store,
+but we can provide the type of argument that best suits our needs. 
+
+In the same way, the rest of the methods of the IRepository interface provide support for the same types of arguments, so
+we can invoke all of them in a flexible and consistent manner.
+
+**Important:** It is strongly recommended to stick to a PascalCase format for the names of the properties set on
+the **dynamic** and **IReadOnlyDictionary** objects passed as arguments, in order to keep consistency throughout 
+different implementations of IRepository.
+
+The IRepository interface defines overloaded versions of the following methods:
+* CreateAsync: Creates a new entity in the repository.
+* UpdateAsync: Updates all attributes of an entity in the repository.
+* PatchAsync: Updates certain attributes of an entity of the repository.
+* DeleteByIdAsync: Deletes the one entity with the specified unique identifier.
+* DeleteManyAsync: Deletes one or more entities matching the specified criteria.
+* GetByIdAsync: Retrieves the entity with the specified unique identifier. 
+* GetByIdExtendedAsync: Retrieves an extended version of one entity with the specified unique identifier.
+* GetOneAsync: Retrieves a single entity matching the specified criteria.
+* GetOneExtendedAsync: Retrieves an extended version of a single entity matching the specified criteria.
+* GetManyAsync: Retrieves one or more entities matching the specified criteria.
+* GetManyExtendedAsync: Retrieves an extended version of one or more entities matching the specified criteria.
 
 **Note:**
 The extended version of an entity shall include additional attributes which may be computed from another attributes of the same entity or gathered from another related entities.
 
-## IRepositoryLocalized
-Represents a repository able to retrieve translated versions of its entities through overloaded versions the its methods that include an argument for the culture identifier.
+
+## IRepositoryTranslated
+Represents a repository able to retrieve translated versions of its entities through overloaded versions of the 'Get*' methods that include an argument for the culture identifier.
+The IRepositoryTranslated interface inherits from IRepository, so it includes of the inherited members plus all the new ones defined.
+```csharp
+public interface IRepositoryTranslated<TEntity, TEntityTranslated, TIdentity> :
+    IRepository<TEntity, TIdentity>
+    where TEntity : class, IEntity
+    where TEntityTranslated : TEntity, IEntityTranslated
+{
+    // Get* methods overloaded to receive the culture identifier   
+}
+```
+### Generic Type Parameters
+#### TEntity
+The type of entity handled by the repository.
+
+#### TEntityTranslated
+The type of the translated entity.
+
+#### TIdentity
+The type of the property that uniquely identifies each entity of the repository.
+
+
 
 ## AbstractRepository
 Implements **IRepository** with virtual methods that throw a **NotSupportedException** exception.
@@ -94,7 +183,7 @@ For example, for a SQL database a class implementing **IUnitOfWork** shall be a 
 On the other hand, implementations of **IUnitOfWorkFactory** shall create instances of the requested type of unit of work.
 A unit of work shall be designed to group a set of repositories which are related in the context of a given operation.
 
-For example, to create an invoice, we may need to create two kind of entities:
+For example, to create an invoice, we may need to create two kinds of entities:
 * Invoice
   * InvoiceId
   * CustomerId
@@ -113,7 +202,7 @@ The way of completing such operation from an application-level command handler c
 ```csharp
 public class CreateInvoiceCommandHandler
 {
-    public async Task<CreateInvoiceCommandResult> ExecuteAsync(CreateInvoiceCommand command, CancellationToken cancellationToken)
+    public async Task<CreateInvoiceCommandResult> HandleAsync(CreateInvoiceCommand command, CancellationToken cancellationToken)
     {
         // Begin operation
         // IUnitOfWork inherits from IDisposable and IAsyncDisposable, if any exception is thrown, the current operation shall be rolled back
@@ -147,4 +236,6 @@ public class CreateInvoiceCommandHandler
 }
 ```
 
-
+## Final Thoughts
+As shown before, this package provides only abstractions aimed to offer consistency and a starting point for different kinds of repositories no matter the underlying infrastructure.
+From an application-level point of view, we only need to create or retrieve entities wihout even caring about what needs to be done internally to do the job.
