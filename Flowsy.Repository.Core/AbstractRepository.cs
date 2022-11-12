@@ -160,23 +160,23 @@ public abstract class AbstractRepository<TEntity, TIdentity> : IRepository<TEnti
     }
 
     /// <summary>
-    /// Deletes one or more entities matching the specified filter.
+    /// Deletes one or more entities matching the specified criteria.
     /// </summary>
-    /// <param name="filter">An object with properties to be used as a filter to delete entities.</param>
+    /// <param name="criteria">An object with properties to be used as criteria to delete entities.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
     /// <returns>The number of affected entities.</returns>
-    public virtual Task<int> DeleteManyAsync(dynamic filter, CancellationToken cancellationToken)
+    public virtual Task<int> DeleteManyAsync(dynamic criteria, CancellationToken cancellationToken)
     {
         throw new NotSupportedException();
     }
 
     /// <summary>
-    /// Deletes one or more entities matching the specified filter.
+    /// Deletes one or more entities matching the specified criteria.
     /// </summary>
-    /// <param name="filter">The property names and values of an object that will be used as a filter to delete entities.</param>
+    /// <param name="criteria">The property names and values of an object that will be used as criteria to delete entities.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
     /// <returns>The number of affected entities.</returns>
-    public virtual Task<int> DeleteManyAsync(IReadOnlyDictionary<string, object?> filter, CancellationToken cancellationToken)
+    public virtual Task<int> DeleteManyAsync(IReadOnlyDictionary<string, object?> criteria, CancellationToken cancellationToken)
     {
         throw new NotSupportedException();
     }
@@ -228,185 +228,231 @@ public abstract class AbstractRepository<TEntity, TIdentity> : IRepository<TEnti
     }
     
     /// <summary>
-    /// Gets an entity matching the specified filter.
+    /// Gets an entity matching the specified criteria.
     /// </summary>
-    /// <param name="filter">An object with properties to be used as a filter to find the entity.</param>
+    /// <param name="criteria">An object with properties to be used as criteria to find the entity.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
     /// <typeparam name="T">Tye type of entity to return.</typeparam>
-    /// <returns>The entity matching the provided filter.</returns>
-    public virtual Task<T?> GetOneAsync<T>(dynamic filter, CancellationToken cancellationToken) where T : class
+    /// <returns>The entity matching the provided criteria.</returns>
+    public virtual Task<T?> GetOneAsync<T>(dynamic criteria, CancellationToken cancellationToken) where T : class
     {
         throw new NotSupportedException();
     }
 
     /// <summary>
-    /// Gets an entity matching the specified filter.
+    /// Gets an entity matching the specified criteria.
     /// </summary>
-    /// <param name="filter">An object with properties to be used as a filter to find the entity.</param>
+    /// <param name="criteria">An object with properties to be used as criteria to find the entity.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
-    /// <returns>The entity matching the provided filter.</returns>
-    public virtual Task<TEntity?> GetOneAsync(dynamic filter, CancellationToken cancellationToken)
+    /// <returns>The entity matching the provided criteria.</returns>
+    public virtual Task<TEntity?> GetOneAsync(dynamic criteria, CancellationToken cancellationToken)
     {
         throw new NotSupportedException();
     }
 
     /// <summary>
-    /// Gets an entity matching the specified filter.
+    /// Gets an entity matching the specified criteria.
     /// </summary>
-    /// <param name="filter">The property names and values of an object to be used as a filter to find the entity.</param>
+    /// <param name="criteria">The property names and values of an object to be used as criteria to find the entity.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
-    /// <returns>The entity matching the provided filter.</returns>
-    public virtual Task<TEntity?> GetOneAsync(IReadOnlyDictionary<string, object?> filter, CancellationToken cancellationToken)
+    /// <returns>The entity matching the provided criteria.</returns>
+    public virtual Task<TEntity?> GetOneAsync(IReadOnlyDictionary<string, object?> criteria, CancellationToken cancellationToken)
     {
         throw new NotSupportedException();
     }
 
     /// <summary>
-    /// Gets the extended version of an entity matching the specified filter.
+    /// Gets the extended version of an entity matching the specified criteria.
     /// </summary>
-    /// <param name="filter">An object with properties to be used as a filter to find the entity.</param>
+    /// <param name="criteria">An object with properties to be used as criteria to find the entity.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
     /// <typeparam name="T">Tye type of entity to return.</typeparam>
-    /// <returns>The entity matching the provided filter.</returns>
-    public virtual Task<T?> GetOneAsync<T>(IReadOnlyDictionary<string, object?> filter, CancellationToken cancellationToken) where T : class
+    /// <returns>The entity matching the provided criteria.</returns>
+    public virtual Task<T?> GetOneAsync<T>(IReadOnlyDictionary<string, object?> criteria, CancellationToken cancellationToken) where T : class
     {
         throw new NotSupportedException();
     }
     
     /// <summary>
-    /// Gets the extended version of an entity matching the specified filter.
+    /// Gets the extended version of an entity matching the specified criteria.
     /// </summary>
-    /// <param name="filter">An object with properties to be used as a filter to find the entity.</param>
+    /// <param name="criteria">An object with properties to be used as criteria to find the entity.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
     /// <typeparam name="T">Tye type of entity to return.</typeparam>
-    /// <returns>The entity matching the provided filter.</returns>
-    public virtual Task<T?> GetOneExtendedAsync<T>(dynamic filter, CancellationToken cancellationToken) where T : class
+    /// <returns>The entity matching the provided criteria.</returns>
+    public virtual Task<T?> GetOneExtendedAsync<T>(dynamic criteria, CancellationToken cancellationToken) where T : class
     {
         throw new NotSupportedException();
     }
 
     /// <summary>
-    /// Gets the extended version of an entity matching the specified filter.
+    /// Gets the extended version of an entity matching the specified criteria.
     /// </summary>
-    /// <param name="filter">The property names and values of an object to be used as a filter to find the entity.</param>
+    /// <param name="criteria">The property names and values of an object to be used as criteria to find the entity.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
     /// <typeparam name="T">Tye type of entity to return.</typeparam>
-    /// <returns>The entity matching the provided filter.</returns>
-    public virtual Task<T?> GetOneExtendedAsync<T>(IReadOnlyDictionary<string, object?> filter, CancellationToken cancellationToken) where T : class
+    /// <returns>The entity matching the provided criteria.</returns>
+    public virtual Task<T?> GetOneExtendedAsync<T>(IReadOnlyDictionary<string, object?> criteria, CancellationToken cancellationToken) where T : class
     {
         throw new NotSupportedException();
     }
     
     /// <summary>
-    /// Gets the extended version of an entity matching the specified filter.
+    /// Gets the extended version of an entity matching the specified criteria.
     /// </summary>
-    /// <param name="filter">An object with properties to be used as a filter to find the entity.</param>
+    /// <param name="criteria">An object with properties to be used as criteria to find the entity.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
-    /// <returns>The entity matching the provided filter.</returns>
-    public virtual Task<TEntity?> GetOneExtendedAsync(dynamic filter, CancellationToken cancellationToken)
+    /// <returns>The entity matching the provided criteria.</returns>
+    public virtual Task<TEntity?> GetOneExtendedAsync(dynamic criteria, CancellationToken cancellationToken)
     {
         throw new NotSupportedException();
     }
 
     /// <summary>
-    /// Gets the extended version of an entity matching the specified filter.
+    /// Gets the extended version of an entity matching the specified criteria.
     /// </summary>
-    /// <param name="filter">The property names and values of an object to be used as a filter to find the entity.</param>
+    /// <param name="criteria">The property names and values of an object to be used as criteria to find the entity.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
-    /// <returns>The entity matching the provided filter.</returns>
-    public virtual Task<TEntity?> GetOneExtendedAsync(IReadOnlyDictionary<string, object?> filter, CancellationToken cancellationToken)
+    /// <returns>The entity matching the provided criteria.</returns>
+    public virtual Task<TEntity?> GetOneExtendedAsync(IReadOnlyDictionary<string, object?> criteria, CancellationToken cancellationToken)
     {
         throw new NotSupportedException();
     }
 
     /// <summary>
-    /// Gets one or more entities matching the specified filter.
+    /// Gets one or more entities matching the specified criteria.
     /// </summary>
-    /// <param name="filter">An object with properties to be used as a filter to find the entities.</param>
+    /// <param name="criteria">An object with properties to be used as criteria to find the entities.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
     /// <typeparam name="T">Tye type of entity to return.</typeparam>
-    /// <returns>The entities matching the provided filter.</returns>
-    public virtual Task<IEnumerable<T>> GetManyAsync<T>(dynamic filter, CancellationToken cancellationToken) where T : class
+    /// <returns>The entities matching the provided criteria.</returns>
+    public virtual Task<IEnumerable<T>> GetManyAsync<T>(dynamic criteria, CancellationToken cancellationToken) where T : class
     {
         throw new NotSupportedException();
     }
 
     /// <summary>
-    /// Gets one or more entities matching the specified filter.
+    /// Gets one or more entities matching the specified criteria.
     /// </summary>
-    /// <param name="filter">The property names and values of an object to be used as a filter to find the entities.</param>
+    /// <param name="criteria">The property names and values of an object to be used as criteria to find the entities.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
     /// <typeparam name="T">Tye type of entity to return.</typeparam>
-    /// <returns>The entities matching the provided filter.</returns>
-    public virtual Task<IEnumerable<T>> GetManyAsync<T>(IReadOnlyDictionary<string, object?> filter, CancellationToken cancellationToken) where T : class
+    /// <returns>The entities matching the provided criteria.</returns>
+    public virtual Task<IEnumerable<T>> GetManyAsync<T>(IReadOnlyDictionary<string, object?> criteria, CancellationToken cancellationToken) where T : class
     {
         throw new NotSupportedException();
     }
     
     /// <summary>
-    /// Gets one or more entities matching the specified filter.
+    /// Gets one or more entities matching the specified criteria.
     /// </summary>
-    /// <param name="filter">An object with properties to be used as a filter to find the entities.</param>
+    /// <param name="criteria">An object with properties to be used as criteria to find the entities.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
-    /// <returns>The entities matching the provided filter.</returns>
-    public virtual Task<IEnumerable<TEntity>> GetManyAsync(dynamic filter, CancellationToken cancellationToken)
+    /// <returns>The entities matching the provided criteria.</returns>
+    public virtual Task<IEnumerable<TEntity>> GetManyAsync(dynamic criteria, CancellationToken cancellationToken)
     {
         throw new NotSupportedException();
     }
 
     /// <summary>
-    /// Gets one or more entities matching the specified filter.
+    /// Gets one or more entities matching the specified criteria.
     /// </summary>
-    /// <param name="filter">The property names and values of an object to be used as a filter to find the entities.</param>
+    /// <param name="criteria">The property names and values of an object to be used as criteria to find the entities.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
-    /// <returns>The entities matching the provided filter.</returns>
-    public virtual Task<IEnumerable<TEntity>> GetManyAsync(IReadOnlyDictionary<string, object?> filter, CancellationToken cancellationToken)
+    /// <returns>The entities matching the provided criteria.</returns>
+    public virtual Task<IEnumerable<TEntity>> GetManyAsync(IReadOnlyDictionary<string, object?> criteria, CancellationToken cancellationToken)
     {
         throw new NotSupportedException();
     }
 
     /// <summary>
-    /// Gets the extended version of one or more entities matching the specified filter.
+    /// Gets a page of one or more entities matching the specified criteria.
     /// </summary>
-    /// <param name="filter">An object with properties to be used as a filter to find the entities.</param>
+    /// <param name="query">The criteria and paging options to find the entities.</param>
+    /// <param name="cancellationToken">The cancellation token for the operation.</param>
+    /// <typeparam name="T">The type of entity for the page to be returned.</typeparam>
+    /// <returns>The page of entities matching the provided criteria.</returns>
+    public Task<EntityPageQueryResult<T>> GetManyAsync<T>(EntityPageQuery query, CancellationToken cancellationToken) where T : class
+    {
+        throw new NotSupportedException();
+    }
+
+    /// <summary>
+    /// Gets a page of one or more entities matching the specified criteria.
+    /// </summary>
+    /// <param name="query">The criteria and paging options to find the entities.</param>
+    /// <param name="cancellationToken">The cancellation token for the operation.</param>
+    /// <returns>The page of entities matching the provided criteria.</returns>
+    public Task<EntityPageQueryResult<TEntity>> GetManyAsync(EntityPageQuery query, CancellationToken cancellationToken)
+    {
+        throw new NotSupportedException();
+    }
+
+    /// <summary>
+    /// Gets the extended version of one or more entities matching the specified criteria.
+    /// </summary>
+    /// <param name="criteria">An object with properties to be used as criteria to find the entities.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
     /// <typeparam name="T">Tye type of entity to return.</typeparam>
-    /// <returns>The entities matching the provided filter.</returns>
-    public virtual Task<IEnumerable<T>> GetManyExtendedAsync<T>(dynamic filter, CancellationToken cancellationToken) where T : class
+    /// <returns>The entities matching the provided criteria.</returns>
+    public virtual Task<IEnumerable<T>> GetManyExtendedAsync<T>(dynamic criteria, CancellationToken cancellationToken) where T : class
     {
         throw new NotSupportedException();
     }
     
     /// <summary>
-    /// Gets the extended version of one or more entities matching the specified filter.
+    /// Gets the extended version of one or more entities matching the specified criteria.
     /// </summary>
-    /// <param name="filter">The property names and values of an object to be used as a filter to find the entities.</param>
+    /// <param name="criteria">The property names and values of an object to be used as criteria to find the entities.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
     /// <typeparam name="T">Tye type of entity to return.</typeparam>
-    /// <returns>The entities matching the provided filter.</returns>
-    public virtual Task<IEnumerable<T>> GetManyExtendedAsync<T>(IReadOnlyDictionary<string, object?> filter, CancellationToken cancellationToken) where T : class
+    /// <returns>The entities matching the provided criteria.</returns>
+    public virtual Task<IEnumerable<T>> GetManyExtendedAsync<T>(IReadOnlyDictionary<string, object?> criteria, CancellationToken cancellationToken) where T : class
     {
         throw new NotSupportedException();
     }
     
     /// <summary>
-    /// Gets the extended version of one or more entities matching the specified filter.
+    /// Gets the extended version of one or more entities matching the specified criteria.
     /// </summary>
-    /// <param name="filter">An object with properties to be used as a filter to find the entities.</param>
+    /// <param name="criteria">An object with properties to be used as criteria to find the entities.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
-    /// <returns>The entities matching the provided filter.</returns>
-    public virtual Task<IEnumerable<TEntity>> GetManyExtendedAsync(dynamic filter, CancellationToken cancellationToken)
+    /// <returns>The entities matching the provided criteria.</returns>
+    public virtual Task<IEnumerable<TEntity>> GetManyExtendedAsync(dynamic criteria, CancellationToken cancellationToken)
     {
         throw new NotSupportedException();
     }
 
     /// <summary>
-    /// Gets the extended version of one or more entities matching the specified filter.
+    /// Gets the extended version of one or more entities matching the specified criteria.
     /// </summary>
-    /// <param name="filter">The property names and values of an object to be used as a filter to find the entities.</param>
+    /// <param name="criteria">The property names and values of an object to be used as criteria to find the entities.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
-    /// <returns>The entities matching the provided filter.</returns>
-    public virtual Task<IEnumerable<TEntity>> GetManyExtendedAsync(IReadOnlyDictionary<string, object?> filter, CancellationToken cancellationToken)
+    /// <returns>The entities matching the provided criteria.</returns>
+    public virtual Task<IEnumerable<TEntity>> GetManyExtendedAsync(IReadOnlyDictionary<string, object?> criteria, CancellationToken cancellationToken)
+    {
+        throw new NotSupportedException();
+    }
+
+    /// <summary>
+    /// Gets a page of the extended version of one or more entities matching the specified criteria.
+    /// </summary>
+    /// <param name="query">The criteria and paging options to find the entities.</param>
+    /// <param name="cancellationToken">The cancellation token for the operation.</param>
+    /// <typeparam name="T">The type of entity for the page to be returned.</typeparam>
+    /// <returns>The page of entities matching the provided criteria.</returns>
+    public Task<EntityPageQueryResult<T>> GetManyExtendedAsync<T>(EntityPageQuery query, CancellationToken cancellationToken) where T : class
+    {
+        throw new NotSupportedException();
+    }
+
+    /// <summary>
+    /// Gets a page of the extended version of one or more entities matching the specified criteria.
+    /// </summary>
+    /// <param name="query">The criteria and paging options to find the entities.</param>
+    /// <param name="cancellationToken">The cancellation token for the operation.</param>
+    /// <returns>The page of entities matching the provided criteria.</returns>
+    public Task<EntityPageQueryResult<TEntity>> GetManyExtendedAsync(EntityPageQuery query, CancellationToken cancellationToken)
     {
         throw new NotSupportedException();
     }

@@ -50,152 +50,190 @@ public interface IRepositoryTranslated<TEntity, TEntityTranslated, TIdentity> :
     Task<TEntityTranslated?> GetByIdExtendedAsync(TIdentity id, string? cultureId, CancellationToken cancellationToken);
 
     /// <summary>
-    /// Gets the translated version of an entity matching the specified filter.
+    /// Gets the translated version of an entity matching the specified criteria.
     /// </summary>
-    /// <param name="filter">An object with properties to be used as a filter to find the entity.</param>
+    /// <param name="criteria">An object with properties to be used as criteria to find the entity.</param>
     /// <param name="cultureId">The culture identifier.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
     /// <typeparam name="T">Tye type of entity to return.</typeparam>
-    /// <returns>The entity matching the provided filter.</returns>
-    Task<T?> GetOneAsync<T>(dynamic filter, string? cultureId, CancellationToken cancellationToken) where T : class;
+    /// <returns>The entity matching the provided criteria.</returns>
+    Task<T?> GetOneAsync<T>(dynamic criteria, string? cultureId, CancellationToken cancellationToken) where T : class;
     
     /// <summary>
-    /// Gets the translated version of an entity matching the specified filter.
+    /// Gets the translated version of an entity matching the specified criteria.
     /// </summary>
-    /// <param name="filter">The property names and values of an object to be used as a filter to find the entity.</param>
+    /// <param name="criteria">The property names and values of an object to be used as criteria to find the entity.</param>
     /// <param name="cultureId">The culture identifier.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
     /// <typeparam name="T">Tye type of entity to return.</typeparam>
-    /// <returns>The entity matching the provided filter.</returns>
-    Task<T?> GetOneAsync<T>(IReadOnlyDictionary<string, object?> filter, string? cultureId, CancellationToken cancellationToken) where T : class;
+    /// <returns>The entity matching the provided criteria.</returns>
+    Task<T?> GetOneAsync<T>(IReadOnlyDictionary<string, object?> criteria, string? cultureId, CancellationToken cancellationToken) where T : class;
     
     /// <summary>
-    /// Gets the translated version of an entity matching the specified filter.
+    /// Gets the translated version of an entity matching the specified criteria.
     /// </summary>
-    /// <param name="filter">An object with properties to be used as a filter to find the entity.</param>
+    /// <param name="criteria">An object with properties to be used as criteria to find the entity.</param>
     /// <param name="cultureId">The culture identifier.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
-    /// <returns>The entity matching the provided filter.</returns>
-    Task<TEntityTranslated?> GetOneAsync(dynamic filter, string? cultureId, CancellationToken cancellationToken);
+    /// <returns>The entity matching the provided criteria.</returns>
+    Task<TEntityTranslated?> GetOneAsync(dynamic criteria, string? cultureId, CancellationToken cancellationToken);
     
     /// <summary>
-    /// Gets the translated version of an entity matching the specified filter.
+    /// Gets the translated version of an entity matching the specified criteria.
     /// </summary>
-    /// <param name="filter">The property names and values of an object to be used as a filter to find the entity.</param>
+    /// <param name="criteria">The property names and values of an object to be used as criteria to find the entity.</param>
     /// <param name="cultureId">The culture identifier.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
-    /// <returns>The entity matching the provided filter.</returns>
-    Task<TEntityTranslated?> GetOneAsync(IReadOnlyDictionary<string, object?> filter, string? cultureId, CancellationToken cancellationToken);
+    /// <returns>The entity matching the provided criteria.</returns>
+    Task<TEntityTranslated?> GetOneAsync(IReadOnlyDictionary<string, object?> criteria, string? cultureId, CancellationToken cancellationToken);
     
     /// <summary>
-    /// Gets an extended and translated version of an entity matching the specified filter.
+    /// Gets an extended and translated version of an entity matching the specified criteria.
     /// </summary>
-    /// <param name="filter">An object with properties to be used as a filter to find the entity.</param>
-    /// <param name="cultureId">The culture identifier.</param>
-    /// <param name="cancellationToken">The cancellation token for the operation.</param>
-    /// <typeparam name="T">Tye type of entity to return.</typeparam>
-    /// <returns>The entity matching the provided filter.</returns>
-    Task<T?> GetOneExtendedAsync<T>(dynamic filter, string? cultureId, CancellationToken cancellationToken) where T : class;
-    
-    /// <summary>
-    /// Gets the extended version of an entity matching the specified filter.
-    /// </summary>
-    /// <param name="filter">The property names and values of an object to be used as a filter to find the entity.</param>
+    /// <param name="criteria">An object with properties to be used as criteria to find the entity.</param>
     /// <param name="cultureId">The culture identifier.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
     /// <typeparam name="T">Tye type of entity to return.</typeparam>
-    /// <returns>The entity matching the provided filter.</returns>
-    Task<T?> GetOneExtendedAsync<T>(IReadOnlyDictionary<string, object?> filter, string? cultureId, CancellationToken cancellationToken) where T : class;
+    /// <returns>The entity matching the provided criteria.</returns>
+    Task<T?> GetOneExtendedAsync<T>(dynamic criteria, string? cultureId, CancellationToken cancellationToken) where T : class;
     
     /// <summary>
-    /// Gets the extended and translated version of an entity matching the specified filter.
+    /// Gets the extended version of an entity matching the specified criteria.
     /// </summary>
-    /// <param name="filter">An object with properties to be used as a filter to find the entity.</param>
-    /// <param name="cultureId">The culture identifier.</param>
-    /// <param name="cancellationToken">The cancellation token for the operation.</param>
-    /// <returns>The entity matching the provided filter.</returns>
-    Task<TEntityTranslated?> GetOneExtendedAsync(dynamic filter, string? cultureId, CancellationToken cancellationToken);
-    
-    /// <summary>
-    /// Gets the extended and translated version of an entity matching the specified filter.
-    /// </summary>
-    /// <param name="filter">An object with properties to be used as a filter to find the entity.</param>
-    /// <param name="cultureId">The culture identifier.</param>
-    /// <param name="cancellationToken">The cancellation token for the operation.</param>
-    /// <returns>The entity matching the provided filter.</returns>
-    Task<TEntityTranslated?> GetOneExtendedAsync(IReadOnlyDictionary<string, object?> filter, string? cultureId, CancellationToken cancellationToken);
-    
-    /// <summary>
-    /// Gets the translated version of one or more entities matching the specified filter.
-    /// </summary>
-    /// <param name="filter">An object with properties to be used as a filter to find the entities.</param>
+    /// <param name="criteria">The property names and values of an object to be used as criteria to find the entity.</param>
     /// <param name="cultureId">The culture identifier.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
     /// <typeparam name="T">Tye type of entity to return.</typeparam>
-    /// <returns>The entities matching the provided filter.</returns>
-    Task<IEnumerable<T>> GetManyAsync<T>(dynamic filter, string? cultureId, CancellationToken cancellationToken) where T : class;
+    /// <returns>The entity matching the provided criteria.</returns>
+    Task<T?> GetOneExtendedAsync<T>(IReadOnlyDictionary<string, object?> criteria, string? cultureId, CancellationToken cancellationToken) where T : class;
     
     /// <summary>
-    /// Gets the translated version of one or more entities matching the specified filter.
+    /// Gets the extended and translated version of an entity matching the specified criteria.
     /// </summary>
-    /// <param name="filter">The property names and values of an object to be used as a filter to find the entities.</param>
+    /// <param name="criteria">An object with properties to be used as criteria to find the entity.</param>
+    /// <param name="cultureId">The culture identifier.</param>
+    /// <param name="cancellationToken">The cancellation token for the operation.</param>
+    /// <returns>The entity matching the provided criteria.</returns>
+    Task<TEntityTranslated?> GetOneExtendedAsync(dynamic criteria, string? cultureId, CancellationToken cancellationToken);
+    
+    /// <summary>
+    /// Gets the extended and translated version of an entity matching the specified criteria.
+    /// </summary>
+    /// <param name="criteria">An object with properties to be used as criteria to find the entity.</param>
+    /// <param name="cultureId">The culture identifier.</param>
+    /// <param name="cancellationToken">The cancellation token for the operation.</param>
+    /// <returns>The entity matching the provided criteria.</returns>
+    Task<TEntityTranslated?> GetOneExtendedAsync(IReadOnlyDictionary<string, object?> criteria, string? cultureId, CancellationToken cancellationToken);
+    
+    /// <summary>
+    /// Gets the translated version of one or more entities matching the specified criteria.
+    /// </summary>
+    /// <param name="criteria">An object with properties to be used as criteria to find the entities.</param>
     /// <param name="cultureId">The culture identifier.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
     /// <typeparam name="T">Tye type of entity to return.</typeparam>
-    /// <returns>The entities matching the provided filter.</returns>
-    Task<IEnumerable<T>> GetManyAsync<T>(IReadOnlyDictionary<string, object?> filter, string? cultureId, CancellationToken cancellationToken) where T : class;
+    /// <returns>The entities matching the provided criteria.</returns>
+    Task<IEnumerable<T>> GetManyAsync<T>(dynamic criteria, string? cultureId, CancellationToken cancellationToken) where T : class;
     
     /// <summary>
-    /// Gets the translated version of one or more entities matching the specified filter.
+    /// Gets the translated version of one or more entities matching the specified criteria.
     /// </summary>
-    /// <param name="filter">An object with properties to be used as a filter to find the entities.</param>
+    /// <param name="criteria">The property names and values of an object to be used as criteria to find the entities.</param>
     /// <param name="cultureId">The culture identifier.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
-    /// <returns>The entities matching the provided filter.</returns>
-    Task<IEnumerable<TEntityTranslated>> GetManyAsync(dynamic filter, string? cultureId, CancellationToken cancellationToken);
+    /// <typeparam name="T">Tye type of entity to return.</typeparam>
+    /// <returns>The entities matching the provided criteria.</returns>
+    Task<IEnumerable<T>> GetManyAsync<T>(IReadOnlyDictionary<string, object?> criteria, string? cultureId, CancellationToken cancellationToken) where T : class;
     
     /// <summary>
-    /// Gets the translated version of one or more entities matching the specified filter.
+    /// Gets the translated version of one or more entities matching the specified criteria.
     /// </summary>
-    /// <param name="filter">The property names and values of an object to be used as a filter to find the entities.</param>
+    /// <param name="criteria">An object with properties to be used as criteria to find the entities.</param>
     /// <param name="cultureId">The culture identifier.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
-    /// <returns>The entities matching the provided filter.</returns>
-    Task<IEnumerable<TEntityTranslated>> GetManyAsync(IReadOnlyDictionary<string, object?> filter, string? cultureId, CancellationToken cancellationToken);
+    /// <returns>The entities matching the provided criteria.</returns>
+    Task<IEnumerable<TEntityTranslated>> GetManyAsync(dynamic criteria, string? cultureId, CancellationToken cancellationToken);
+    
+    /// <summary>
+    /// Gets the translated version of one or more entities matching the specified criteria.
+    /// </summary>
+    /// <param name="criteria">The property names and values of an object to be used as criteria to find the entities.</param>
+    /// <param name="cultureId">The culture identifier.</param>
+    /// <param name="cancellationToken">The cancellation token for the operation.</param>
+    /// <returns>The entities matching the provided criteria.</returns>
+    Task<IEnumerable<TEntityTranslated>> GetManyAsync(IReadOnlyDictionary<string, object?> criteria, string? cultureId, CancellationToken cancellationToken);
 
     /// <summary>
-    /// Gets the extended and translated version of one or more entities matching the specified filter.
+    /// Gets a page of the translated version of the entities matching the specified criteria.
     /// </summary>
-    /// <param name="filter">An object with properties to be used as a filter to find the entities.</param>
+    /// <param name="query">The criteria and paging options to find the entities.</param>
     /// <param name="cultureId">The culture identifier.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
-    /// <returns>The entities matching the provided filter.</returns>
-    Task<IEnumerable<T>> GetManyExtendedAsync<T>(dynamic filter, string? cultureId, CancellationToken cancellationToken) where T : class;
-    
-    /// <summary>
-    /// Gets the extended and translated version of one or more entities matching the specified filter.
-    /// </summary>
-    /// <param name="filter">The property names and values of an object to be used as a filter to find the entities.</param>
-    /// <param name="cultureId">The culture identifier.</param>
-    /// <param name="cancellationToken">The cancellation token for the operation.</param>
-    /// <returns>The entities matching the provided filter.</returns>
-    Task<IEnumerable<T>> GetManyExtendedAsync<T>(IReadOnlyDictionary<string, object?> filter, string? cultureId, CancellationToken cancellationToken) where T : class;
-    
-    /// <summary>
-    /// Gets the extended and translated version of one or more entities matching the specified filter.
-    /// </summary>
-    /// <param name="filter">An object with properties to be used as a filter to find the entities.</param>
-    /// <param name="cultureId">The culture identifier.</param>
-    /// <param name="cancellationToken">The cancellation token for the operation.</param>
-    /// <returns>The entities matching the provided filter.</returns>
-    Task<IEnumerable<TEntityTranslated>> GetManyExtendedAsync(dynamic filter, string? cultureId, CancellationToken cancellationToken);
+    /// <typeparam name="T">The type of entity for the page to be returned.</typeparam>
+    /// <returns>The page of entities matching the provided criteria.</returns>
+    Task<EntityPageQueryResult<T>> GetManyAsync<T>(EntityPageQuery query, string cultureId, CancellationToken cancellationToken) where T : class;
 
     /// <summary>
-    /// Gets the extended and translated version of one or more entities matching the specified filter.
+    /// Gets a page of the translated version of the entities matching the specified criteria.
     /// </summary>
-    /// <param name="filter">The property names and values of an object to be used as a filter to find the entities.</param>
+    /// <param name="query">The criteria and paging options to find the entities.</param>
     /// <param name="cultureId">The culture identifier.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
-    /// <returns>The entities matching the provided filter.</returns>
-    Task<IEnumerable<TEntityTranslated>> GetManyExtendedAsync(IReadOnlyDictionary<string, object?> filter, string? cultureId, CancellationToken cancellationToken);
+    /// <returns>The page of entities matching the provided criteria.</returns>
+    Task<EntityPageQueryResult<TEntity>> GetManyAsync(EntityPageQuery query, string cultureId, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Gets the extended and translated version of one or more entities matching the specified criteria.
+    /// </summary>
+    /// <param name="criteria">An object with properties to be used as criteria to find the entities.</param>
+    /// <param name="cultureId">The culture identifier.</param>
+    /// <param name="cancellationToken">The cancellation token for the operation.</param>
+    /// <returns>The entities matching the provided criteria.</returns>
+    Task<IEnumerable<T>> GetManyExtendedAsync<T>(dynamic criteria, string? cultureId, CancellationToken cancellationToken) where T : class;
+    
+    /// <summary>
+    /// Gets the extended and translated version of one or more entities matching the specified criteria.
+    /// </summary>
+    /// <param name="criteria">The property names and values of an object to be used as criteria to find the entities.</param>
+    /// <param name="cultureId">The culture identifier.</param>
+    /// <param name="cancellationToken">The cancellation token for the operation.</param>
+    /// <returns>The entities matching the provided criteria.</returns>
+    Task<IEnumerable<T>> GetManyExtendedAsync<T>(IReadOnlyDictionary<string, object?> criteria, string? cultureId, CancellationToken cancellationToken) where T : class;
+    
+    /// <summary>
+    /// Gets the extended and translated version of one or more entities matching the specified criteria.
+    /// </summary>
+    /// <param name="criteria">An object with properties to be used as criteria to find the entities.</param>
+    /// <param name="cultureId">The culture identifier.</param>
+    /// <param name="cancellationToken">The cancellation token for the operation.</param>
+    /// <returns>The entities matching the provided criteria.</returns>
+    Task<IEnumerable<TEntityTranslated>> GetManyExtendedAsync(dynamic criteria, string? cultureId, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Gets the extended and translated version of one or more entities matching the specified criteria.
+    /// </summary>
+    /// <param name="criteria">The property names and values of an object to be used as criteria to find the entities.</param>
+    /// <param name="cultureId">The culture identifier.</param>
+    /// <param name="cancellationToken">The cancellation token for the operation.</param>
+    /// <returns>The entities matching the provided criteria.</returns>
+    Task<IEnumerable<TEntityTranslated>> GetManyExtendedAsync(IReadOnlyDictionary<string, object?> criteria, string? cultureId, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Gets a page of the extended and translated version of one or more entities matching the specified criteria.
+    /// </summary>
+    /// <param name="query">The criteria and paging options to find the entities.</param>
+    /// <param name="cultureId">The culture identifier.</param>
+    /// <param name="cancellationToken">The cancellation token for the operation.</param>
+    /// <typeparam name="T">The type of entity for the page to be returned.</typeparam>
+    /// <returns>The page of entities matching the provided criteria.</returns>
+    Task<EntityPageQueryResult<T>> GetManyExtendedAsync<T>(EntityPageQuery query, string cultureId, CancellationToken cancellationToken) where T : class;
+
+    /// <summary>
+    /// Gets a page of the extended and translated version of one or more entities matching the specified criteria.
+    /// </summary>
+    /// <param name="query">The criteria and paging options to find the entities.</param>
+    /// <param name="cultureId">The culture identifier.</param>
+    /// <param name="cancellationToken">The cancellation token for the operation.</param>
+    /// <returns>The page of entities matching the provided criteria.</returns>
+    Task<EntityPageQueryResult<TEntity>> GetManyExtendedAsync(EntityPageQuery query, string cultureId, CancellationToken cancellationToken);
 }
