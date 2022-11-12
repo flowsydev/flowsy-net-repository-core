@@ -1,20 +1,20 @@
 namespace Flowsy.Repository.Core;
 
-public class EntityPageQuery
+public abstract class EntityPageQuery<TCriteria> : IEntityPageQuery<TCriteria> where TCriteria : class
 {
-    public EntityPageQuery() : this(new { }, 1, long.MaxValue, false)
+    protected EntityPageQuery() : this(1, long.MaxValue, false)
     {
     }
 
-    public EntityPageQuery(dynamic criteria, long pageNumber, long pageSize, bool countTotals)
+    protected EntityPageQuery(long pageNumber, long pageSize, bool countTotals)
     {
-        Criteria = criteria;
+        Criteria = default;
         PageNumber = pageNumber;
         PageSize = pageSize;
         CountTotals = countTotals;
     }
     
-    public dynamic? Criteria { get; set; }
+    public TCriteria? Criteria { get; set; }
 
     public long PageNumber { get; set; }
     public long PageSize { get; set; }

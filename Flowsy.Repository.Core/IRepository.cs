@@ -280,23 +280,28 @@ public interface IRepository<TEntity, TIdentity> : IRepository where TEntity : c
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
     /// <returns>The entities matching the provided criteria.</returns>
     Task<IEnumerable<TEntity>> GetManyAsync(IReadOnlyDictionary<string, object?> criteria, CancellationToken cancellationToken);
-    
-    /// <summary>
-    /// Gets a page of one or more entities matching the specified criteria.
-    /// </summary>
-    /// <param name="query">The criteria and paging options to find the entities.</param>
-    /// <param name="cancellationToken">The cancellation token for the operation.</param>
-    /// <typeparam name="T">The type of entity for the page to be returned.</typeparam>
-    /// <returns>The page of entities matching the provided criteria.</returns>
-    Task<EntityPageQueryResult<T>> GetManyAsync<T>(EntityPageQuery query, CancellationToken cancellationToken) where T : class;
 
     /// <summary>
     /// Gets a page of one or more entities matching the specified criteria.
     /// </summary>
     /// <param name="query">The criteria and paging options to find the entities.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
+    /// <typeparam name="TCriteria">The type of crieteria for the query.</typeparam>
+    /// <typeparam name="TResult">The type of the entities expected as the result of the query.</typeparam>
     /// <returns>The page of entities matching the provided criteria.</returns>
-    Task<EntityPageQueryResult<TEntity>> GetManyAsync(EntityPageQuery query, CancellationToken cancellationToken);
+    Task<EntityPageQueryResult<TCriteria, TResult>> GetManyAsync<TCriteria, TResult>(EntityPageQuery<TCriteria> query, CancellationToken cancellationToken)
+        where TCriteria : class
+        where TResult : class;
+
+    /// <summary>
+    /// Gets a page of one or more entities matching the specified criteria.
+    /// </summary>
+    /// <param name="query">The criteria and paging options to find the entities.</param>
+    /// <param name="cancellationToken">The cancellation token for the operation.</param>
+    /// <typeparam name="TCriteria">The type of crieteria for the query.</typeparam>
+    /// <returns>The page of entities matching the provided criteria.</returns>
+    Task<EntityPageQueryResult<TCriteria, TEntity>> GetManyAsync<TCriteria>(EntityPageQuery<TCriteria> query, CancellationToken cancellationToken)
+        where TCriteria : class;
     
     /// <summary>
     /// Gets the extended version of one or more entities matching the specified criteria.
@@ -331,21 +336,26 @@ public interface IRepository<TEntity, TIdentity> : IRepository where TEntity : c
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
     /// <returns>The entities matching the provided criteria.</returns>
     Task<IEnumerable<TEntity>> GetManyExtendedAsync(IReadOnlyDictionary<string, object?> criteria, CancellationToken cancellationToken);
-    
-    /// <summary>
-    /// Gets a page of the extended version of one or more entities matching the specified criteria.
-    /// </summary>
-    /// <param name="query">The criteria and paging options to find the entities.</param>
-    /// <param name="cancellationToken">The cancellation token for the operation.</param>
-    /// <typeparam name="T">The type of entity for the page to be returned.</typeparam>
-    /// <returns>The page of entities matching the provided criteria.</returns>
-    Task<EntityPageQueryResult<T>> GetManyExtendedAsync<T>(EntityPageQuery query, CancellationToken cancellationToken) where T : class;
 
     /// <summary>
     /// Gets a page of the extended version of one or more entities matching the specified criteria.
     /// </summary>
     /// <param name="query">The criteria and paging options to find the entities.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
+    /// <typeparam name="TCriteria">The type of crieteria for the query.</typeparam>
+    /// <typeparam name="TResult">The type of the entities expected as the result of the query.</typeparam>
     /// <returns>The page of entities matching the provided criteria.</returns>
-    Task<EntityPageQueryResult<TEntity>> GetManyExtendedAsync(EntityPageQuery query, CancellationToken cancellationToken);
+    Task<EntityPageQueryResult<TCriteria, TResult>> GetManyExtendedAsync<TCriteria, TResult>(EntityPageQuery<TCriteria> query, CancellationToken cancellationToken)
+        where TCriteria : class
+        where TResult : class;
+
+    /// <summary>
+    /// Gets a page of the extended version of one or more entities matching the specified criteria.
+    /// </summary>
+    /// <param name="query">The criteria and paging options to find the entities.</param>
+    /// <param name="cancellationToken">The cancellation token for the operation.</param>
+    /// <typeparam name="TCriteria">The type of crieteria for the query.</typeparam>
+    /// <returns>The page of entities matching the provided criteria.</returns>
+    Task<EntityPageQueryResult<TCriteria, TEntity>> GetManyExtendedAsync<TCriteria>(EntityPageQuery<TCriteria> query, CancellationToken cancellationToken)
+        where TCriteria : class;
 }

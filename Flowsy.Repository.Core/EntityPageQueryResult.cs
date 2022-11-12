@@ -1,19 +1,21 @@
 namespace Flowsy.Repository.Core;
 
-public class EntityPageQueryResult<TEntity> where TEntity : class
+public class EntityPageQueryResult<TCriteria, TResult> 
+    where TCriteria : class
+    where TResult : class
 {
-    public EntityPageQueryResult(EntityPageQuery query, IEnumerable<TEntity> items, long? totalItemCount)
+    public EntityPageQueryResult(EntityPageQuery<TCriteria> query, IEnumerable<TResult> results, long? totalItemCount)
     {
         Query = query;
-        Items = items;
+        Results = results;
         TotalItemCount = totalItemCount;
     }
 
-    public EntityPageQuery Query { get; }
+    public EntityPageQuery<TCriteria> Query { get; }
     
-    public IEnumerable<TEntity> Items { get; }
+    public IEnumerable<TResult> Results { get; }
     
-    public long PageSize => Items.Count();
+    public long PageSize => Results.Count();
     public long? TotalItemCount { get; }
     
     public long TotalPageCount => 
