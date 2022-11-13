@@ -1,8 +1,8 @@
 namespace Flowsy.Repository.Core;
 
-public abstract class EntityPageQuery<TCriteria> : IEntityPageQuery<TCriteria> where TCriteria : class
+public class EntityPageQuery<TCriteria> : IEntityPageQuery<TCriteria> where TCriteria : class
 {
-    protected EntityPageQuery(long pageNumber = 1, long pageSize = long.MaxValue, bool countTotal = false, string? totalCountProperty = null)
+    public EntityPageQuery(long pageNumber = 1, long pageSize = long.MaxValue, bool countTotal = false, string? totalCountProperty = null)
     {
         Criteria = default;
         PageNumber = pageNumber;
