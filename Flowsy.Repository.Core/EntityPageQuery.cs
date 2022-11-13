@@ -2,17 +2,7 @@ namespace Flowsy.Repository.Core;
 
 public abstract class EntityPageQuery<TCriteria> : IEntityPageQuery<TCriteria> where TCriteria : class
 {
-    protected EntityPageQuery()
-        : this(1, long.MaxValue, false, string.Empty)
-    {
-    }
-
-    protected EntityPageQuery(long pageNumber, long pageSize, bool countTotals)
-        : this (1, long.MaxValue, false, string.Empty)
-    {
-    }
-
-    protected EntityPageQuery(long pageNumber, long pageSize, bool countTotals, string totalProperty)
+    protected EntityPageQuery(long pageNumber = 1, long pageSize = long.MaxValue, bool countTotals = false, string? totalProperty = null)
     {
         Criteria = default;
         PageNumber = pageNumber;
@@ -26,7 +16,7 @@ public abstract class EntityPageQuery<TCriteria> : IEntityPageQuery<TCriteria> w
     public long PageNumber { get; set; }
     public long PageSize { get; set; }
     public bool CountTotals { get; set; }
-    public string TotalProperty { get; set; }
+    public string? TotalProperty { get; set; }
     
     public void Translate(out long offset, out long limit)
     {
