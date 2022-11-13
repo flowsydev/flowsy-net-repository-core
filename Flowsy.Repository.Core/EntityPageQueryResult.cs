@@ -18,8 +18,8 @@ public class EntityPageQueryResult<TCriteria, TResult>
     public long PageSize => Results.Count();
     public long? TotalResultCount { get; }
     
-    public long TotalPageCount => 
-        Query?.PageSize > 0 && TotalResultCount > 0
+    public long? TotalPageCount => 
+        Query.CountTotal && Query.PageSize > 0 && TotalResultCount.HasValue && TotalResultCount > 0
             ? (long) Math.Ceiling(TotalResultCount.Value / (decimal) Query.PageSize) 
             : default;
 }
