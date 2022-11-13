@@ -3,7 +3,7 @@ namespace Flowsy.Repository.Core;
 public abstract class AbstractRepositoryTranslated<TEntity, TEntityTranslated, TIdentity> 
     : AbstractRepository<TEntity, TIdentity>, IRepositoryTranslated<TEntity, TEntityTranslated, TIdentity>
     where TEntity : class, IEntity
-    where TEntityTranslated : TEntity, IEntityTranslated
+    where TEntityTranslated : class, TEntity, IEntityTranslated
 {
     /// <summary>
     /// Gets the translated version of the entity identified by the provided value.
@@ -229,7 +229,7 @@ public abstract class AbstractRepositoryTranslated<TEntity, TEntityTranslated, T
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
     /// <typeparam name="TCriteria">The type of crieteria for the query.</typeparam>
     /// <returns>The page of entities matching the provided criteria.</returns>
-    public virtual Task<EntityPageQueryResult<TCriteria, TEntity>> GetManyAsync<TCriteria>(EntityPageQuery<TCriteria> query, string? cultureId, CancellationToken cancellationToken)
+    public virtual Task<EntityPageQueryResult<TCriteria, TEntityTranslated>> GetManyAsync<TCriteria>(EntityPageQuery<TCriteria> query, string? cultureId, CancellationToken cancellationToken)
         where TCriteria : class
     {
         throw new NotSupportedException();
@@ -308,7 +308,7 @@ public abstract class AbstractRepositoryTranslated<TEntity, TEntityTranslated, T
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
     /// <typeparam name="TCriteria">The type of crieteria for the query.</typeparam>
     /// <returns>The page of entities matching the provided criteria.</returns>
-    public virtual Task<EntityPageQueryResult<TCriteria, TEntity>> GetManyExtendedAsync<TCriteria>(EntityPageQuery<TCriteria> query, string? cultureId, CancellationToken cancellationToken)
+    public virtual Task<EntityPageQueryResult<TCriteria, TEntityTranslated>> GetManyExtendedAsync<TCriteria>(EntityPageQuery<TCriteria> query, string? cultureId, CancellationToken cancellationToken)
         where TCriteria : class
     {
         throw new NotSupportedException();

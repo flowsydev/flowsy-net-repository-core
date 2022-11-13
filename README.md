@@ -171,10 +171,10 @@ The type of the property that uniquely identifies each entity of the repository.
 
 
 
-## AbstractRepository
-Implements **IRepository** with virtual methods that throw a **NotSupportedException** exception.
-This class is abstract and was created as a starting point for other classes.
-The classes inheriting **AbstractRepository** only need to override the methods required for a specific implementation, the rest should not be invoked or otherwise will throw an exception by design. 
+## AbstractRepository & Abstract Repository Translated
+Implement **IRepository** and **IRepositoryTranslated** with virtual methods that throw a **NotSupportedException** exception.
+These classes are abstract and were created as a starting point for other classes, so they only need to override the methods
+required for a specific implementation, the rest should not be invoked or otherwise will throw an exception by design. 
 
 ## IUnitOfWork & IUnitOfWorkFactory
 The interface **IUnitOfWork** represents an atomic operation for the underlying data store.
