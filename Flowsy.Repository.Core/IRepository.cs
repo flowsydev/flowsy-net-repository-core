@@ -289,7 +289,7 @@ public interface IRepository<TEntity, TIdentity> : IRepository where TEntity : c
     /// <typeparam name="TCriteria">The type of crieteria for the query.</typeparam>
     /// <typeparam name="TResult">The type of the entities expected as the result of the query.</typeparam>
     /// <returns>The page of entities matching the provided criteria.</returns>
-    Task<EntityPageQueryResult<TCriteria, TResult>> GetManyAsync<TCriteria, TResult>(EntityPageQuery<TCriteria> query, CancellationToken cancellationToken)
+    Task<EntityPageQueryResult<TCriteria, TResult>> GetPageAsync<TCriteria, TResult>(EntityPageQuery<TCriteria> query, CancellationToken cancellationToken)
         where TCriteria : class
         where TResult : class;
 
@@ -300,7 +300,7 @@ public interface IRepository<TEntity, TIdentity> : IRepository where TEntity : c
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
     /// <typeparam name="TCriteria">The type of crieteria for the query.</typeparam>
     /// <returns>The page of entities matching the provided criteria.</returns>
-    Task<EntityPageQueryResult<TCriteria, TEntity>> GetManyAsync<TCriteria>(EntityPageQuery<TCriteria> query, CancellationToken cancellationToken)
+    Task<EntityPageQueryResult<TCriteria, TEntity>> GetPageAsync<TCriteria>(EntityPageQuery<TCriteria> query, CancellationToken cancellationToken)
         where TCriteria : class;
     
     /// <summary>
@@ -345,7 +345,7 @@ public interface IRepository<TEntity, TIdentity> : IRepository where TEntity : c
     /// <typeparam name="TCriteria">The type of crieteria for the query.</typeparam>
     /// <typeparam name="TResult">The type of the entities expected as the result of the query.</typeparam>
     /// <returns>The page of entities matching the provided criteria.</returns>
-    Task<EntityPageQueryResult<TCriteria, TResult>> GetManyExtendedAsync<TCriteria, TResult>(EntityPageQuery<TCriteria> query, CancellationToken cancellationToken)
+    Task<EntityPageQueryResult<TCriteria, TResult>> GetPageExtendedAsync<TCriteria, TResult>(EntityPageQuery<TCriteria> query, CancellationToken cancellationToken)
         where TCriteria : class
         where TResult : class;
 
@@ -356,6 +356,6 @@ public interface IRepository<TEntity, TIdentity> : IRepository where TEntity : c
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
     /// <typeparam name="TCriteria">The type of crieteria for the query.</typeparam>
     /// <returns>The page of entities matching the provided criteria.</returns>
-    Task<EntityPageQueryResult<TCriteria, TEntity>> GetManyExtendedAsync<TCriteria>(EntityPageQuery<TCriteria> query, CancellationToken cancellationToken)
+    Task<EntityPageQueryResult<TCriteria, TEntity>> GetPageExtendedAsync<TCriteria>(EntityPageQuery<TCriteria> query, CancellationToken cancellationToken)
         where TCriteria : class;
 }
