@@ -21,6 +21,9 @@ Interface that shall be implemented by classes used as entities handled by a giv
 ## IEntityTranslation
 Interface that shall be implemented by classes used as the translation for a given entity.
 Intended for applications with multi-lingual support.
+
+### Creating an Entity Translation
+Along with our main entities, we can create special entities to hold all the translatable properties required for each case.
 ```csharp
 // Entity
 public class Product : IEntity 
@@ -33,39 +36,74 @@ public class Product : IEntity
 // Entity translation
 public class ProductTranslation : IEntityTranslation
 {
+    // Identity for ProductTranslation
     public int ProductTranslationId { get; set; }
+    
+    // Identity for Product
     public int ProductId { get; set; }
     
+    ////////////////////////////////////////////////////////////////////////////////
     // Defined in IEntityTranslation
-    // Value used by the application to identify a specific culture
+    ////////////////////////////////////////////////////////////////////////////////
+    // Value required by the application to identify a specific culture
     // A best practice is to set this property to a value based on RFC 4646 (en-US, es-MX, etc)
     public string CultureId { get; set; } = string.Empty;
     
+    // Optional culture name
+    public string? CultureName { get; set; }
+    
+    // Optional language data
+    public string? TranslationLanguageId { get; set; }
+    public string? TranslationLanguageName { get; set; }
+    
+    // Optional country data
+    public string? TranslationCountryId { get; set; }
+    public string? TranslationCountryName { get; set; }
+    
+    ////////////////////////////////////////////////////////////////////////////////
+    // Translatable attributes for a 'Product'
+    ////////////////////////////////////////////////////////////////////////////////
     public string Name { get; set; } = string.Empty;
     public string? Description { get; set; }
-    // Other translatable attributes for a 'Product'
+    // ...
 }
 ```
 
-## IEntityTranslated
-Interface that shall be implemented by classes extending an entity to include a specific translation.
-An object implementing **IEntityTranslated** can be thought of as a combination of an entity and its translation.
-Intended for applications with multi-lingual support.
+### Creating the Translated Version of an Entity
+In a similar way, we can make combinations of the two examples above, to create the translated version of our main entities.
+If we take these concepts to a relational database scenario, a translated version of an entity can be thought of as a query joining
+the two previous entities: Product and ProductTranslation.
 ```csharp
-public class ProductTranslated : Product, IEntityTranslated
+public class ProductTranslated : Product, IEntityTranslation
 {
-    public string CultureId { get; set; } // Defined in IEntityTranslated. Example: en-US
-    public string? CultureName { get; set; } // Defined in IEntityTranslated. Example: English (United States of America)
-    
-    public string? LanguageId { get; set; } // Defined in IEntityTranslated. Example: es
-    public string? LanguageName { get; set; } // Defined in IEntityTranslated. Example: English
-    
-    public string? CountryId { get; set; } // Defined in IEntityTranslated. Example: US
-    public string? CountryName { get; set; } // Defined in IEntityTranslated. Example: United States of America
+    // This class will inherit all the members of a Product
+    // and shall include the required ones defined in ProductTranslation
+    // in order to create a translated version for a given culture
 
-    public string Name { get; set; } = string.Empty; // Value specific for the english (US) version
-    public string? Description { get; set; } // Value specific for the english (US) version
-    // Other translatable attributes for a 'Product'
+    ////////////////////////////////////////////////////////////////////////////////
+    // Data about the given culture (from IEntityTranslation)
+    ////////////////////////////////////////////////////////////////////////////////
+    // Value required by the application to identify a specific culture
+    // A best practice is to set this property to a value based on RFC 4646 (en-US, es-MX, etc)
+    public string CultureId { get; set; } = string.Empty;
+    
+    // Optional culture name
+    public string? CultureName { get; set; }
+    
+    // Optional language data
+    public string? TranslationLanguageId { get; set; }
+    public string? TranslationLanguageName { get; set; }
+    
+    // Optional country data
+    public string? TranslationCountryId { get; set; }
+    public string? TranslationCountryName { get; set; }
+
+    ////////////////////////////////////////////////////////////////////////////////
+    // Translatable attributes for a 'Product'
+    ////////////////////////////////////////////////////////////////////////////////
+    public string Name { get; set; } = string.Empty;
+    public string? Description { get; set; }
+    // ...
 }
 ```
 
@@ -142,19 +180,21 @@ The IRepository interface defines overloaded versions of the following methods:
 * GetOneExtendedAsync: Retrieves an extended version of a single entity matching the specified criteria.
 * GetManyAsync: Retrieves one or more entities matching the specified criteria.
 * GetManyExtendedAsync: Retrieves an extended version of one or more entities matching the specified criteria.
+* GetPageAsync: Retrieves a page of one or more entities matching the specified criteria.
+* GetPageExtendedAsync: Retrieves a page of the extended version of one or more entities matching the specified criteria.
 
 **Note:**
 The extended version of an entity shall include additional attributes which may be computed from another attributes of the same entity or gathered from another related entities.
 
 
-## IRepositoryTranslated
+## IRepositoryTranslation
 Represents a repository able to retrieve translated versions of its entities through overloaded versions of the 'Get*' methods that include an argument for the culture identifier.
-The IRepositoryTranslated interface inherits from IRepository, so it includes of the inherited members plus all the new ones defined.
+The IRepositoryTranslation interface inherits from IRepository, so it includes of the inherited members plus all the new ones defined.
 ```csharp
-public interface IRepositoryTranslated<TEntity, TEntityTranslated, TIdentity> :
+public interface IRepositoryTranslation<TEntity, TEntityTranslation, TIdentity> :
     IRepository<TEntity, TIdentity>
     where TEntity : class, IEntity
-    where TEntityTranslated : TEntity, IEntityTranslated
+    where TEntityTranslation : TEntity, IEntityTranslation
 {
     // Get* methods overloaded to receive the culture identifier   
 }
@@ -163,16 +203,16 @@ public interface IRepositoryTranslated<TEntity, TEntityTranslated, TIdentity> :
 #### TEntity
 The type of entity handled by the repository.
 
-#### TEntityTranslated
-The type of the translated entity.
+#### TEntityTranslation
+The type of the entity translation.
 
 #### TIdentity
 The type of the property that uniquely identifies each entity of the repository.
 
 
 
-## AbstractRepository & Abstract Repository Translated
-Implement **IRepository** and **IRepositoryTranslated** with virtual methods that throw a **NotSupportedException** exception.
+## AbstractRepository & Abstract Repository Translation
+Implement **IRepository** and **IRepositoryTranslation** with virtual methods that throw a **NotSupportedException** exception.
 These classes are abstract and were created as a starting point for other classes, so they only need to override the methods
 required for a specific implementation, the rest should not be invoked or otherwise will throw an exception by design. 
 
