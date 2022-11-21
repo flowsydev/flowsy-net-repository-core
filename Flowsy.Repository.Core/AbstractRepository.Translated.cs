@@ -5,12 +5,12 @@ namespace Flowsy.Repository.Core;
 /// This abstract class is intended to be inherited by classes that will override the required virtual methods for the specific use case of the repository.   
 /// </summary>
 /// <typeparam name="TEntity">The entity type.</typeparam>
-/// <typeparam name="TEntityTranslation">The type of the entity translation.</typeparam>
+/// <typeparam name="TEntityTranslated">The type of the translated entity.</typeparam>
 /// <typeparam name="TIdentity">The identity type.</typeparam>
-public abstract class AbstractRepositoryTranslation<TEntity, TEntityTranslation, TIdentity> 
-    : AbstractRepository<TEntity, TIdentity>, IRepositoryTranslation<TEntity, TEntityTranslation, TIdentity>
+public abstract class AbstractRepository<TEntity, TEntityTranslated, TIdentity> 
+    : AbstractRepository<TEntity, TIdentity>, IRepository<TEntity, TEntityTranslated, TIdentity>
     where TEntity : class, IEntity
-    where TEntityTranslation : class, TEntity, IEntityTranslation
+    where TEntityTranslated : class, TEntity, IEntityTranslation
 {
     /// <summary>
     /// Gets the translated version of the entity identified by the provided value.
@@ -32,7 +32,7 @@ public abstract class AbstractRepositoryTranslation<TEntity, TEntityTranslation,
     /// <param name="cultureId">The culture identifier.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
     /// <returns>The entity identified by the provided value or a null value if not found.</returns>    
-    public virtual Task<TEntityTranslation?> GetByIdAsync(TIdentity id, string? cultureId, CancellationToken cancellationToken)
+    public virtual Task<TEntityTranslated?> GetByIdAsync(TIdentity id, string? cultureId, CancellationToken cancellationToken)
     {
         throw new NotSupportedException();
     }
@@ -57,7 +57,7 @@ public abstract class AbstractRepositoryTranslation<TEntity, TEntityTranslation,
     /// <param name="cultureId">The culture identifier.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
     /// <returns>The entity identified by the provided value or a null value if not found.</returns>
-    public virtual Task<TEntityTranslation?> GetByIdExtendedAsync(TIdentity id, string? cultureId, CancellationToken cancellationToken)
+    public virtual Task<TEntityTranslated?> GetByIdExtendedAsync(TIdentity id, string? cultureId, CancellationToken cancellationToken)
     {
         throw new NotSupportedException();
     }
@@ -95,7 +95,7 @@ public abstract class AbstractRepositoryTranslation<TEntity, TEntityTranslation,
     /// <param name="cultureId">The culture identifier.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
     /// <returns>The entity matching the provided criteria.</returns>
-    public virtual Task<TEntityTranslation?> GetOneAsync(dynamic criteria, string? cultureId, CancellationToken cancellationToken)
+    public virtual Task<TEntityTranslated?> GetOneAsync(dynamic criteria, string? cultureId, CancellationToken cancellationToken)
     {
         throw new NotSupportedException();
     }
@@ -107,7 +107,7 @@ public abstract class AbstractRepositoryTranslation<TEntity, TEntityTranslation,
     /// <param name="cultureId">The culture identifier.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
     /// <returns>The entity matching the provided criteria.</returns>
-    public virtual Task<TEntityTranslation?> GetOneAsync(IReadOnlyDictionary<string, object?> criteria, string? cultureId, CancellationToken cancellationToken)
+    public virtual Task<TEntityTranslated?> GetOneAsync(IReadOnlyDictionary<string, object?> criteria, string? cultureId, CancellationToken cancellationToken)
     {
         throw new NotSupportedException();
     }
@@ -145,7 +145,7 @@ public abstract class AbstractRepositoryTranslation<TEntity, TEntityTranslation,
     /// <param name="cultureId">The culture identifier.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
     /// <returns>The entity matching the provided criteria.</returns>
-    public virtual Task<TEntityTranslation?> GetOneExtendedAsync(dynamic criteria, string? cultureId, CancellationToken cancellationToken)
+    public virtual Task<TEntityTranslated?> GetOneExtendedAsync(dynamic criteria, string? cultureId, CancellationToken cancellationToken)
     {
         throw new NotSupportedException();
     }
@@ -157,7 +157,7 @@ public abstract class AbstractRepositoryTranslation<TEntity, TEntityTranslation,
     /// <param name="cultureId">The culture identifier.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
     /// <returns>The entity matching the provided criteria.</returns>
-    public virtual Task<TEntityTranslation?> GetOneExtendedAsync(IReadOnlyDictionary<string, object?> criteria, string? cultureId, CancellationToken cancellationToken)
+    public virtual Task<TEntityTranslated?> GetOneExtendedAsync(IReadOnlyDictionary<string, object?> criteria, string? cultureId, CancellationToken cancellationToken)
     {
         throw new NotSupportedException();
     }
@@ -195,7 +195,7 @@ public abstract class AbstractRepositoryTranslation<TEntity, TEntityTranslation,
     /// <param name="cultureId">The culture identifier.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
     /// <returns>The entities matching the provided criteria.</returns>
-    public virtual Task<IEnumerable<TEntityTranslation>> GetManyAsync(dynamic criteria, string? cultureId, CancellationToken cancellationToken)
+    public virtual Task<IEnumerable<TEntityTranslated>> GetManyAsync(dynamic criteria, string? cultureId, CancellationToken cancellationToken)
     {
         throw new NotSupportedException();
     }
@@ -207,7 +207,7 @@ public abstract class AbstractRepositoryTranslation<TEntity, TEntityTranslation,
     /// <param name="cultureId">The culture identifier.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
     /// <returns>The entities matching the provided criteria.</returns>
-    public virtual Task<IEnumerable<TEntityTranslation>> GetManyAsync(IReadOnlyDictionary<string, object?> criteria, string? cultureId, CancellationToken cancellationToken)
+    public virtual Task<IEnumerable<TEntityTranslated>> GetManyAsync(IReadOnlyDictionary<string, object?> criteria, string? cultureId, CancellationToken cancellationToken)
     {
         throw new NotSupportedException();
     }
@@ -236,7 +236,7 @@ public abstract class AbstractRepositoryTranslation<TEntity, TEntityTranslation,
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
     /// <typeparam name="TCriteria">The type of crieteria for the query.</typeparam>
     /// <returns>The page of entities matching the provided criteria.</returns>
-    public virtual Task<EntityPageQueryResult<TCriteria, TEntityTranslation>> GetPageAsync<TCriteria>(EntityPageQuery<TCriteria> query, string? cultureId, CancellationToken cancellationToken)
+    public virtual Task<EntityPageQueryResult<TCriteria, TEntityTranslated>> GetPageAsync<TCriteria>(EntityPageQuery<TCriteria> query, string? cultureId, CancellationToken cancellationToken)
         where TCriteria : class
     {
         throw new NotSupportedException();
@@ -274,7 +274,7 @@ public abstract class AbstractRepositoryTranslation<TEntity, TEntityTranslation,
     /// <param name="cultureId">The culture identifier.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
     /// <returns>The entities matching the provided criteria.</returns>
-    public virtual Task<IEnumerable<TEntityTranslation>> GetManyExtendedAsync(dynamic criteria, string? cultureId, CancellationToken cancellationToken)
+    public virtual Task<IEnumerable<TEntityTranslated>> GetManyExtendedAsync(dynamic criteria, string? cultureId, CancellationToken cancellationToken)
     {
         throw new NotSupportedException();
     }
@@ -286,7 +286,7 @@ public abstract class AbstractRepositoryTranslation<TEntity, TEntityTranslation,
     /// <param name="cultureId">The culture identifier.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
     /// <returns>The entities matching the provided criteria.</returns>
-    public virtual Task<IEnumerable<TEntityTranslation>> GetManyExtendedAsync(IReadOnlyDictionary<string, object?> criteria, string? cultureId, CancellationToken cancellationToken)
+    public virtual Task<IEnumerable<TEntityTranslated>> GetManyExtendedAsync(IReadOnlyDictionary<string, object?> criteria, string? cultureId, CancellationToken cancellationToken)
     {
         throw new NotSupportedException();
     }
@@ -315,7 +315,7 @@ public abstract class AbstractRepositoryTranslation<TEntity, TEntityTranslation,
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
     /// <typeparam name="TCriteria">The type of crieteria for the query.</typeparam>
     /// <returns>The page of entities matching the provided criteria.</returns>
-    public virtual Task<EntityPageQueryResult<TCriteria, TEntityTranslation>> GetPageExtendedAsync<TCriteria>(EntityPageQuery<TCriteria> query, string? cultureId, CancellationToken cancellationToken)
+    public virtual Task<EntityPageQueryResult<TCriteria, TEntityTranslated>> GetPageExtendedAsync<TCriteria>(EntityPageQuery<TCriteria> query, string? cultureId, CancellationToken cancellationToken)
         where TCriteria : class
     {
         throw new NotSupportedException();

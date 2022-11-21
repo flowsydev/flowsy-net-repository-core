@@ -4,12 +4,12 @@ namespace Flowsy.Repository.Core;
 /// Represents a repository that can retrieve translated versions of its entities.
 /// </summary>
 /// <typeparam name="TEntity">The entity type.</typeparam>
-/// <typeparam name="TEntityTranslation">The type of the entity translation.</typeparam>
+/// <typeparam name="TEntityTranslated">The type of the translated entity.</typeparam>
 /// <typeparam name="TIdentity">The identity type.</typeparam>
-public interface IRepositoryTranslation<TEntity, TEntityTranslation, TIdentity> :
-    IRepository<TEntity, TIdentity>
+public  interface IRepository<TEntity, TEntityTranslated, TIdentity>
+    : IRepository<TEntity, TIdentity>
     where TEntity : class, IEntity
-    where TEntityTranslation : class, TEntity, IEntityTranslation
+    where TEntityTranslated : class, TEntity, IEntityTranslation
 {
     /// <summary>
     /// Gets the translated version of the entity identified by the provided value.
@@ -28,7 +28,7 @@ public interface IRepositoryTranslation<TEntity, TEntityTranslation, TIdentity> 
     /// <param name="cultureId">The culture identifier.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
     /// <returns>The entity identified by the provided value or a null value if not found.</returns>
-    Task<TEntityTranslation?> GetByIdAsync(TIdentity id, string? cultureId, CancellationToken cancellationToken);
+    Task<TEntityTranslated?> GetByIdAsync(TIdentity id, string? cultureId, CancellationToken cancellationToken);
     
     /// <summary>
     /// Gets the extended and translated version of the entity identified by the provided value.
@@ -47,7 +47,7 @@ public interface IRepositoryTranslation<TEntity, TEntityTranslation, TIdentity> 
     /// <param name="cultureId">The culture identifier.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
     /// <returns>The entity identified by the provided value or a null value if not found.</returns>
-    Task<TEntityTranslation?> GetByIdExtendedAsync(TIdentity id, string? cultureId, CancellationToken cancellationToken);
+    Task<TEntityTranslated?> GetByIdExtendedAsync(TIdentity id, string? cultureId, CancellationToken cancellationToken);
 
     /// <summary>
     /// Gets the translated version of an entity matching the specified criteria.
@@ -76,7 +76,7 @@ public interface IRepositoryTranslation<TEntity, TEntityTranslation, TIdentity> 
     /// <param name="cultureId">The culture identifier.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
     /// <returns>The entity matching the provided criteria.</returns>
-    Task<TEntityTranslation?> GetOneAsync(dynamic criteria, string? cultureId, CancellationToken cancellationToken);
+    Task<TEntityTranslated?> GetOneAsync(dynamic criteria, string? cultureId, CancellationToken cancellationToken);
     
     /// <summary>
     /// Gets the translated version of an entity matching the specified criteria.
@@ -85,7 +85,7 @@ public interface IRepositoryTranslation<TEntity, TEntityTranslation, TIdentity> 
     /// <param name="cultureId">The culture identifier.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
     /// <returns>The entity matching the provided criteria.</returns>
-    Task<TEntityTranslation?> GetOneAsync(IReadOnlyDictionary<string, object?> criteria, string? cultureId, CancellationToken cancellationToken);
+    Task<TEntityTranslated?> GetOneAsync(IReadOnlyDictionary<string, object?> criteria, string? cultureId, CancellationToken cancellationToken);
     
     /// <summary>
     /// Gets an extended and translated version of an entity matching the specified criteria.
@@ -114,7 +114,7 @@ public interface IRepositoryTranslation<TEntity, TEntityTranslation, TIdentity> 
     /// <param name="cultureId">The culture identifier.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
     /// <returns>The entity matching the provided criteria.</returns>
-    Task<TEntityTranslation?> GetOneExtendedAsync(dynamic criteria, string? cultureId, CancellationToken cancellationToken);
+    Task<TEntityTranslated?> GetOneExtendedAsync(dynamic criteria, string? cultureId, CancellationToken cancellationToken);
     
     /// <summary>
     /// Gets the extended and translated version of an entity matching the specified criteria.
@@ -123,7 +123,7 @@ public interface IRepositoryTranslation<TEntity, TEntityTranslation, TIdentity> 
     /// <param name="cultureId">The culture identifier.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
     /// <returns>The entity matching the provided criteria.</returns>
-    Task<TEntityTranslation?> GetOneExtendedAsync(IReadOnlyDictionary<string, object?> criteria, string? cultureId, CancellationToken cancellationToken);
+    Task<TEntityTranslated?> GetOneExtendedAsync(IReadOnlyDictionary<string, object?> criteria, string? cultureId, CancellationToken cancellationToken);
     
     /// <summary>
     /// Gets the translated version of one or more entities matching the specified criteria.
@@ -152,7 +152,7 @@ public interface IRepositoryTranslation<TEntity, TEntityTranslation, TIdentity> 
     /// <param name="cultureId">The culture identifier.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
     /// <returns>The entities matching the provided criteria.</returns>
-    Task<IEnumerable<TEntityTranslation>> GetManyAsync(dynamic criteria, string? cultureId, CancellationToken cancellationToken);
+    Task<IEnumerable<TEntityTranslated>> GetManyAsync(dynamic criteria, string? cultureId, CancellationToken cancellationToken);
     
     /// <summary>
     /// Gets the translated version of one or more entities matching the specified criteria.
@@ -161,7 +161,7 @@ public interface IRepositoryTranslation<TEntity, TEntityTranslation, TIdentity> 
     /// <param name="cultureId">The culture identifier.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
     /// <returns>The entities matching the provided criteria.</returns>
-    Task<IEnumerable<TEntityTranslation>> GetManyAsync(IReadOnlyDictionary<string, object?> criteria, string? cultureId, CancellationToken cancellationToken);
+    Task<IEnumerable<TEntityTranslated>> GetManyAsync(IReadOnlyDictionary<string, object?> criteria, string? cultureId, CancellationToken cancellationToken);
 
     /// <summary>
     /// Gets a page of the translated version of the entities matching the specified criteria.
@@ -184,7 +184,7 @@ public interface IRepositoryTranslation<TEntity, TEntityTranslation, TIdentity> 
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
     /// <typeparam name="TCriteria">The type of crieteria for the query.</typeparam>
     /// <returns>The page of entities matching the provided criteria.</returns>
-    Task<EntityPageQueryResult<TCriteria, TEntityTranslation>> GetPageAsync<TCriteria>(EntityPageQuery<TCriteria> query, string? cultureId, CancellationToken cancellationToken)
+    Task<EntityPageQueryResult<TCriteria, TEntityTranslated>> GetPageAsync<TCriteria>(EntityPageQuery<TCriteria> query, string? cultureId, CancellationToken cancellationToken)
         where TCriteria : class;
 
     /// <summary>
@@ -212,7 +212,7 @@ public interface IRepositoryTranslation<TEntity, TEntityTranslation, TIdentity> 
     /// <param name="cultureId">The culture identifier.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
     /// <returns>The entities matching the provided criteria.</returns>
-    Task<IEnumerable<TEntityTranslation>> GetManyExtendedAsync(dynamic criteria, string? cultureId, CancellationToken cancellationToken);
+    Task<IEnumerable<TEntityTranslated>> GetManyExtendedAsync(dynamic criteria, string? cultureId, CancellationToken cancellationToken);
 
     /// <summary>
     /// Gets the extended and translated version of one or more entities matching the specified criteria.
@@ -221,7 +221,7 @@ public interface IRepositoryTranslation<TEntity, TEntityTranslation, TIdentity> 
     /// <param name="cultureId">The culture identifier.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
     /// <returns>The entities matching the provided criteria.</returns>
-    Task<IEnumerable<TEntityTranslation>> GetManyExtendedAsync(IReadOnlyDictionary<string, object?> criteria, string? cultureId, CancellationToken cancellationToken);
+    Task<IEnumerable<TEntityTranslated>> GetManyExtendedAsync(IReadOnlyDictionary<string, object?> criteria, string? cultureId, CancellationToken cancellationToken);
 
     /// <summary>
     /// Gets a page of the extended and translated version of one or more entities matching the specified criteria.
@@ -244,6 +244,6 @@ public interface IRepositoryTranslation<TEntity, TEntityTranslation, TIdentity> 
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
     /// <typeparam name="TCriteria">The type of crieteria for the query.</typeparam>
     /// <returns>The page of entities matching the provided criteria.</returns>
-    Task<EntityPageQueryResult<TCriteria, TEntityTranslation>> GetPageExtendedAsync<TCriteria>(EntityPageQuery<TCriteria> query, string? cultureId, CancellationToken cancellationToken)
+    Task<EntityPageQueryResult<TCriteria, TEntityTranslated>> GetPageExtendedAsync<TCriteria>(EntityPageQuery<TCriteria> query, string? cultureId, CancellationToken cancellationToken)
         where TCriteria : class;
 }

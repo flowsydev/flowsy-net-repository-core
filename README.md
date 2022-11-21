@@ -131,7 +131,6 @@ A string to identify the type of entity handled for the repository.
 It is highly recommended to stick to a PascalCase convention, so specific implementations will be able to perform tasks in a consistent way.
 The entity name can be thought of as the noun used to describe that real world object or concept being modeled: Product, Customer, Invoice, PurchaseOrder, etc.
 
-
 #### IdentityPropertyName
 The name of the property that holds unique identifiers for entities of the repository.
 It is highly recommended to use consistent values in PascalCase format for all of the entities handled by the application.
@@ -187,14 +186,14 @@ The IRepository interface defines overloaded versions of the following methods:
 The extended version of an entity shall include additional attributes which may be computed from another attributes of the same entity or gathered from another related entities.
 
 
-## IRepositoryTranslation
+## IRepository<TEntity, TEntityTranslated, TIdentity>
 Represents a repository able to retrieve translated versions of its entities through overloaded versions of the 'Get*' methods that include an argument for the culture identifier.
-The IRepositoryTranslation interface inherits from IRepository, so it includes of the inherited members plus all the new ones defined.
+The **IRepository<TEntity, TEntityTranslated, TIdentity>** interface inherits from IRepository, so it includes of the inherited members plus all the new ones defined.
 ```csharp
-public interface IRepositoryTranslation<TEntity, TEntityTranslation, TIdentity> :
+public interface IRepository<TEntity, TEntityTranslated, TIdentity> :
     IRepository<TEntity, TIdentity>
     where TEntity : class, IEntity
-    where TEntityTranslation : TEntity, IEntityTranslation
+    where TEntityTranslated : class, TEntity, IEntityTranslation
 {
     // Get* methods overloaded to receive the culture identifier   
 }
@@ -203,16 +202,16 @@ public interface IRepositoryTranslation<TEntity, TEntityTranslation, TIdentity> 
 #### TEntity
 The type of entity handled by the repository.
 
-#### TEntityTranslation
-The type of the entity translation.
+#### TEntityTranslated
+The type of the translated entity.
 
 #### TIdentity
 The type of the property that uniquely identifies each entity of the repository.
 
 
 
-## AbstractRepository & Abstract Repository Translation
-Implement **IRepository** and **IRepositoryTranslation** with virtual methods that throw a **NotSupportedException** exception.
+## AbstractRepository<TEntity, TIdentity> and AbstractRepository<TEntity, TEntityTranslated, TIdentity>
+Implement **IRepository<TEntity, TIdentity>** and **IRepository<TEntity, TEntityTranslated, TIdentity>** with virtual methods that throw a **NotSupportedException** exception.
 These classes are abstract and were created as a starting point for other classes, so they only need to override the methods
 required for a specific implementation, the rest should not be invoked or otherwise will throw an exception by design. 
 
