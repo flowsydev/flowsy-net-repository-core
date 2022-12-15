@@ -8,6 +8,11 @@ namespace Flowsy.Repository.Core;
 /// <typeparam name="TIdentity">The identity type.</typeparam>
 public abstract class AbstractRepository<TEntity, TIdentity> : IRepository<TEntity, TIdentity> where TEntity : class, IEntity
 {
+    protected AbstractRepository(IExceptionHandler? exceptionHandler = null)
+    {
+        ExceptionHandler = exceptionHandler;
+    }
+
     /// <summary>
     /// The name used to identify entities of type TEntity.
     /// It is highly recommended to stick to a PascalCase convention, so specific implementations will be able to perform tasks in a consistent way.
@@ -22,6 +27,8 @@ public abstract class AbstractRepository<TEntity, TIdentity> : IRepository<TEnti
     /// The simplest way to implement this property would be to return the value of $"{EntityName}Id" or something of the sort.
     /// </summary>
     public virtual string IdentityPropertyName => $"{EntityName}Id";
+    
+    protected virtual IExceptionHandler? ExceptionHandler { get; }
     
     /// <summary>
     /// Creates a new entity in the underlying data store.
