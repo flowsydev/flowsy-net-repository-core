@@ -384,7 +384,7 @@ public abstract class AbstractRepository<TEntity, TIdentity> : IRepository<TEnti
         TQuery query,
         CancellationToken cancellationToken
         )
-        where TQuery : class, IEntityPageQuery
+        where TQuery : EntityPageQuery
         where TResult : class
     {
         throw new NotSupportedException();
@@ -398,7 +398,7 @@ public abstract class AbstractRepository<TEntity, TIdentity> : IRepository<TEnti
     /// <typeparam name="TQuery">The type of the query.</typeparam>
     /// <returns>The page of entities matching the provided criteria.</returns>
     public virtual Task<EntityPageQueryResult<TQuery, TEntity>> GetPageAsync<TQuery>(TQuery query, CancellationToken cancellationToken)
-        where TQuery : class, IEntityPageQuery
+        where TQuery : EntityPageQuery
     {
         throw new NotSupportedException();
     }
@@ -458,7 +458,7 @@ public abstract class AbstractRepository<TEntity, TIdentity> : IRepository<TEnti
     /// <typeparam name="TResult">The type of the entities expected as the result of the query.</typeparam>
     /// <returns>The page of entities matching the provided criteria.</returns>
     public virtual Task<EntityPageQueryResult<TQuery, TResult>> GetPageExtendedAsync<TQuery, TResult>(TQuery query, CancellationToken cancellationToken)
-        where TQuery : class, IEntityPageQuery
+        where TQuery : EntityPageQuery
         where TResult : class
     {
         throw new NotSupportedException();
@@ -472,7 +472,7 @@ public abstract class AbstractRepository<TEntity, TIdentity> : IRepository<TEnti
     /// <typeparam name="TQuery">The type of the query.</typeparam>
     /// <returns>The page of entities matching the provided criteria.</returns>
     public virtual Task<EntityPageQueryResult<TQuery, TEntity>> GetPageExtendedAsync<TQuery>(TQuery query, CancellationToken cancellationToken)
-        where TQuery : class, IEntityPageQuery
+        where TQuery : EntityPageQuery
     {
         throw new NotSupportedException();
     }

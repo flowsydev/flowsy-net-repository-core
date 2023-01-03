@@ -290,7 +290,7 @@ public interface IRepository<TEntity, TIdentity> : IRepository where TEntity : c
     /// <typeparam name="TResult">The type of the entities expected as the result of the query.</typeparam>
     /// <returns>The page of entities matching the provided criteria.</returns>
     Task<EntityPageQueryResult<TQuery, TResult>> GetPageAsync<TQuery, TResult>(TQuery query, CancellationToken cancellationToken)
-        where TQuery : class, IEntityPageQuery
+        where TQuery : EntityPageQuery
         where TResult : class;
 
     /// <summary>
@@ -301,7 +301,7 @@ public interface IRepository<TEntity, TIdentity> : IRepository where TEntity : c
     /// <typeparam name="TQuery">The type of the query.</typeparam>
     /// <returns>The page of entities matching the provided criteria.</returns>
     Task<EntityPageQueryResult<TQuery, TEntity>> GetPageAsync<TQuery>(TQuery query, CancellationToken cancellationToken)
-        where TQuery : class, IEntityPageQuery;
+        where TQuery : EntityPageQuery;
     
     /// <summary>
     /// Gets the extended version of one or more entities matching the specified criteria.
@@ -346,7 +346,7 @@ public interface IRepository<TEntity, TIdentity> : IRepository where TEntity : c
     /// <typeparam name="TResult">The type of the entities expected as the result of the query.</typeparam>
     /// <returns>The page of entities matching the provided criteria.</returns>
     Task<EntityPageQueryResult<TQuery, TResult>> GetPageExtendedAsync<TQuery, TResult>(TQuery query, CancellationToken cancellationToken)
-        where TQuery : class, IEntityPageQuery
+        where TQuery : EntityPageQuery
         where TResult : class;
 
     /// <summary>
@@ -357,5 +357,5 @@ public interface IRepository<TEntity, TIdentity> : IRepository where TEntity : c
     /// <typeparam name="TQuery">The type of the query.</typeparam>
     /// <returns>The page of entities matching the provided criteria.</returns>
     Task<EntityPageQueryResult<TQuery, TEntity>> GetPageExtendedAsync<TQuery>(TQuery query, CancellationToken cancellationToken)
-        where TQuery : class, IEntityPageQuery;
+        where TQuery : EntityPageQuery;
 }

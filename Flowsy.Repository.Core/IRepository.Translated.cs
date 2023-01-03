@@ -173,7 +173,7 @@ public  interface IRepository<TEntity, TEntityTranslated, TIdentity>
     /// <typeparam name="TResult">The type of the entities expected as the result of the query.</typeparam>
     /// <returns>The page of entities matching the provided criteria.</returns>
     Task<EntityPageQueryResult<TQuery, TResult>> GetPageAsync<TQuery, TResult>(TQuery query, string? cultureId, CancellationToken cancellationToken) 
-        where TQuery : class, IEntityPageQuery
+        where TQuery : EntityPageQuery
         where TResult : class;
 
     /// <summary>
@@ -185,7 +185,7 @@ public  interface IRepository<TEntity, TEntityTranslated, TIdentity>
     /// <typeparam name="TQuery">The type of the query.</typeparam>
     /// <returns>The page of entities matching the provided criteria.</returns>
     Task<EntityPageQueryResult<TQuery, TEntityTranslated>> GetPageAsync<TQuery>(TQuery query, string? cultureId, CancellationToken cancellationToken)
-        where TQuery : class, IEntityPageQuery;
+        where TQuery : EntityPageQuery;
 
     /// <summary>
     /// Gets the extended and translated version of one or more entities matching the specified criteria.
@@ -233,7 +233,7 @@ public  interface IRepository<TEntity, TEntityTranslated, TIdentity>
     /// <typeparam name="TResult">The type of the entities expected as the result of the query.</typeparam>
     /// <returns>The page of entities matching the provided criteria.</returns>
     Task<EntityPageQueryResult<TQuery, TResult>> GetPageExtendedAsync<TQuery, TResult>(TQuery query, string? cultureId, CancellationToken cancellationToken)
-        where TQuery : class, IEntityPageQuery
+        where TQuery : EntityPageQuery
         where TResult : class;
 
     /// <summary>
@@ -245,5 +245,5 @@ public  interface IRepository<TEntity, TEntityTranslated, TIdentity>
     /// <typeparam name="TQuery">The type of the query.</typeparam>
     /// <returns>The page of entities matching the provided criteria.</returns>
     Task<EntityPageQueryResult<TQuery, TEntityTranslated>> GetPageExtendedAsync<TQuery>(TQuery query, string? cultureId, CancellationToken cancellationToken)
-        where TQuery : class, IEntityPageQuery;
+        where TQuery : EntityPageQuery;
 }

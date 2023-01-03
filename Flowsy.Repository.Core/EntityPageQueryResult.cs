@@ -6,7 +6,7 @@ namespace Flowsy.Repository.Core;
 /// <typeparam name="TQuery">The original query.</typeparam>
 /// <typeparam name="TResult">The result of the query.</typeparam>
 public class EntityPageQueryResult<TQuery, TResult> 
-    where TQuery : class, IEntityPageQuery
+    where TQuery : EntityPageQuery
     where TResult : class
 {
     public EntityPageQueryResult(TQuery query, IEnumerable<TResult> results, long? totalResultCount)
