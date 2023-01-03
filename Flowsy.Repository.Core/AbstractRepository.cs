@@ -377,12 +377,14 @@ public abstract class AbstractRepository<TEntity, TIdentity> : IRepository<TEnti
     /// </summary>
     /// <param name="query">The criteria and paging options to find the entities.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
-    /// <typeparam name="TCriteria">The type of crieteria for the query.</typeparam>
+    /// <typeparam name="TQuery">The type of the query.</typeparam>
     /// <typeparam name="TResult">The type of the entities expected as the result of the query.</typeparam>
     /// <returns>The page of entities matching the provided criteria.</returns>
-    public virtual Task<EntityPageQueryResult<TCriteria, TResult>> GetPageAsync<TCriteria, TResult>(
-        EntityPageQuery<TCriteria> query, CancellationToken cancellationToken)
-        where TCriteria : class
+    public virtual Task<EntityPageQueryResult<TQuery, TResult>> GetPageAsync<TQuery, TResult>(
+        TQuery query,
+        CancellationToken cancellationToken
+        )
+        where TQuery : class, IEntityPageQuery
         where TResult : class
     {
         throw new NotSupportedException();
@@ -393,10 +395,10 @@ public abstract class AbstractRepository<TEntity, TIdentity> : IRepository<TEnti
     /// </summary>
     /// <param name="query">The criteria and paging options to find the entities.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
-    /// <typeparam name="TCriteria">The type of crieteria for the query.</typeparam>
+    /// <typeparam name="TQuery">The type of the query.</typeparam>
     /// <returns>The page of entities matching the provided criteria.</returns>
-    public virtual Task<EntityPageQueryResult<TCriteria, TEntity>> GetPageAsync<TCriteria>(EntityPageQuery<TCriteria> query, CancellationToken cancellationToken)
-        where TCriteria : class
+    public virtual Task<EntityPageQueryResult<TQuery, TEntity>> GetPageAsync<TQuery>(TQuery query, CancellationToken cancellationToken)
+        where TQuery : class, IEntityPageQuery
     {
         throw new NotSupportedException();
     }
@@ -452,11 +454,11 @@ public abstract class AbstractRepository<TEntity, TIdentity> : IRepository<TEnti
     /// </summary>
     /// <param name="query">The criteria and paging options to find the entities.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
-    /// <typeparam name="TCriteria">The type of crieteria for the query.</typeparam>
+    /// <typeparam name="TQuery">The type of the query.</typeparam>
     /// <typeparam name="TResult">The type of the entities expected as the result of the query.</typeparam>
     /// <returns>The page of entities matching the provided criteria.</returns>
-    public virtual Task<EntityPageQueryResult<TCriteria, TResult>> GetPageExtendedAsync<TCriteria, TResult>(EntityPageQuery<TCriteria> query, CancellationToken cancellationToken)
-        where TCriteria : class
+    public virtual Task<EntityPageQueryResult<TQuery, TResult>> GetPageExtendedAsync<TQuery, TResult>(TQuery query, CancellationToken cancellationToken)
+        where TQuery : class, IEntityPageQuery
         where TResult : class
     {
         throw new NotSupportedException();
@@ -467,10 +469,10 @@ public abstract class AbstractRepository<TEntity, TIdentity> : IRepository<TEnti
     /// </summary>
     /// <param name="query">The criteria and paging options to find the entities.</param>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
-    /// <typeparam name="TCriteria">The type of crieteria for the query.</typeparam>
+    /// <typeparam name="TQuery">The type of the query.</typeparam>
     /// <returns>The page of entities matching the provided criteria.</returns>
-    public virtual Task<EntityPageQueryResult<TCriteria, TEntity>> GetPageExtendedAsync<TCriteria>(EntityPageQuery<TCriteria> query, CancellationToken cancellationToken)
-        where TCriteria : class
+    public virtual Task<EntityPageQueryResult<TQuery, TEntity>> GetPageExtendedAsync<TQuery>(TQuery query, CancellationToken cancellationToken)
+        where TQuery : class, IEntityPageQuery
     {
         throw new NotSupportedException();
     }

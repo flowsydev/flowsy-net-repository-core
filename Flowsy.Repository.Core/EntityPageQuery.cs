@@ -3,29 +3,21 @@ namespace Flowsy.Repository.Core;
 /// <summary>
 /// Represents a query to retrieve only a set of entities matching the specified criteria and pagination options.
 /// </summary>
-/// <typeparam name="TCriteria"></typeparam>
-public class EntityPageQuery<TCriteria> : IEntityPageQuery<TCriteria> where TCriteria : class
+public abstract class EntityPageQuery : IEntityPageQuery
 {
-   public EntityPageQuery(
-        TCriteria? criteria = default,
+   protected EntityPageQuery(
         long pageNumber = 1,
         long pageSize = 50,
         bool countTotal = false,
         string? totalCountProperty = null
         )
     {
-        Criteria = criteria;
         PageNumber = pageNumber;
         PageSize = pageSize;
         CountTotal = countTotal;
         TotalCountProperty = totalCountProperty;
     }
-
-    /// <summary>
-    /// The criteria to match in order to retrieve the entities.
-    /// </summary>
-    public TCriteria? Criteria { get; set; }
-    
+   
     /// <summary>
     /// The number of the page of entities to retrieve.
     /// </summary>

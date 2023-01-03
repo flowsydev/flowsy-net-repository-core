@@ -3,13 +3,13 @@ namespace Flowsy.Repository.Core;
 /// <summary>
 /// Represents the results of a query based on pagination.
 /// </summary>
-/// <typeparam name="TCriteria"></typeparam>
-/// <typeparam name="TResult"></typeparam>
-public class EntityPageQueryResult<TCriteria, TResult> 
-    where TCriteria : class
+/// <typeparam name="TQuery">The original query.</typeparam>
+/// <typeparam name="TResult">The result of the query.</typeparam>
+public class EntityPageQueryResult<TQuery, TResult> 
+    where TQuery : class, IEntityPageQuery
     where TResult : class
 {
-    public EntityPageQueryResult(EntityPageQuery<TCriteria> query, IEnumerable<TResult> results, long? totalResultCount)
+    public EntityPageQueryResult(TQuery query, IEnumerable<TResult> results, long? totalResultCount)
     {
         Query = query;
         Results = results;
@@ -19,7 +19,7 @@ public class EntityPageQueryResult<TCriteria, TResult>
     /// <summary>
     /// The original query associated with this result.
     /// </summary>
-    public EntityPageQuery<TCriteria> Query { get; }
+    public TQuery Query { get; }
     
     /// <summary>
     /// The list of entities matching to the criteria and pagination options. 
