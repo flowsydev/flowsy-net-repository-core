@@ -14,7 +14,7 @@
         <RepositoryType>git</RepositoryType>
         <RepositoryUrl>https://github.com/flowsydev/flowsy-net-repository-core</RepositoryUrl>
 
-        <PackageVersion>11.0.0</PackageVersion>
+        <PackageVersion>12.0.0</PackageVersion>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageReadmeFile>README.md</PackageReadmeFile>
 

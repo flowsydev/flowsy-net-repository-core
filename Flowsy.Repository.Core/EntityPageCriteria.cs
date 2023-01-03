@@ -3,7 +3,7 @@ namespace Flowsy.Repository.Core;
 /// <summary>
 /// Represents a query to retrieve only a set of entities matching the specified criteria and pagination options.
 /// </summary>
-public abstract class EntityPageQuery
+public abstract class EntityPageCriteria
 {
     /// <summary>
     /// The number of the page of entities to retrieve.
