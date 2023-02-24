@@ -8,7 +8,7 @@ namespace Flowsy.Repository.Core;
 /// <typeparam name="TIdentity">The identity type.</typeparam>
 public abstract class AbstractRepository<TEntity, TIdentity> : IRepository<TEntity, TIdentity> where TEntity : class, IEntity
 {
-    protected AbstractRepository(IExceptionHandler? exceptionHandler = null)
+    protected AbstractRepository(IRepositoryExceptionHandler? exceptionHandler = null)
     {
         ExceptionHandler = exceptionHandler;
     }
@@ -28,7 +28,7 @@ public abstract class AbstractRepository<TEntity, TIdentity> : IRepository<TEnti
     /// </summary>
     public virtual string IdentityPropertyName => $"{EntityName}Id";
     
-    protected virtual IExceptionHandler? ExceptionHandler { get; }
+    protected virtual IRepositoryExceptionHandler? ExceptionHandler { get; }
     
     /// <summary>
     /// Creates a new entity in the underlying data store.
