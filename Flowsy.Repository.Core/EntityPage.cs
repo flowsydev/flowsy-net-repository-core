@@ -42,13 +42,11 @@ public class EntityPage<TCriteria, TEntity>
     public long? TotalPageCount => 
         Criteria is {CountTotal: true, PageSize: > 0} && TotalEntityCount is > 0
             ? (long) Math.Ceiling(TotalEntityCount.Value / (decimal) Criteria.PageSize) 
-            : default;
+            : null;
     
     /// <summary>
     /// Indicates if more data can be retrieved by requesting the next page of entities. 
     /// </summary>
     public bool HasMore 
-        => Criteria.CountTotal && TotalEntityCount.HasValue && TotalPageCount.HasValue 
-            ? Criteria.PageNumber < TotalPageCount
-            : Criteria.PageSize == EntityCount;
+        => !Criteria.CountTotal || !TotalEntityCount.HasValue || !TotalPageCount.HasValue || Criteria.PageNumber < TotalPageCount;
 }
