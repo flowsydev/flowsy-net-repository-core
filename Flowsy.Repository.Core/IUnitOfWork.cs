@@ -7,13 +7,26 @@ namespace Flowsy.Repository.Core;
 public interface IUnitOfWork : IDisposable, IAsyncDisposable
 {
     /// <summary>
-    /// Persists all the changes made during the unit of work.
+    /// Persists all the changes made in the context of the unit of work.
     /// </summary>
-    void Commit();
+    void Save();
     
     /// <summary>
-    /// Asynchronously persists all the changes made during the unit of work.
+    /// Asynchronously persists all the changes made in the context of the unit of work.
     /// </summary>
     /// <param name="cancellationToken">The cancellation token for the operation.</param>
-    Task CommitAsync(CancellationToken cancellationToken);
+    Task SaveAsync(CancellationToken cancellationToken);
+    
+    /// <summary>
+    /// Rolls back all the changes made in the context of the unit of work.
+    /// This method shall be invoked when disposed.
+    /// </summary>
+    void Undo();
+    
+    /// <summary>
+    /// Asynchronously rolls back all the changes made in the context of the unit of work.
+    /// This method shall be invoked when disposed.
+    /// </summary>
+    /// <param name="cancellationToken">The cancellation token for the operation.</param>
+    Task UndoAsync(CancellationToken cancellationToken);
 }
